@@ -13,6 +13,19 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="28dp"
+            android:gravity="right"
+            android:layout_marginRight="8dp">
+            <Button
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text="로그인"
+                android:background="#ffffff"
+                android:layout_gravity="right"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center">
 
@@ -20,7 +33,6 @@
                 android:id="@+id/mainactivity_logo"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:src="@drawable/connect_logo" />
         </LinearLayout>
 
@@ -30,6 +42,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginTop="5dp"
+            android:layout_marginBottom="3dp"
             android:background="#919497"
             android:gravity="center"
             android:hint="검색어를 입력하세요" />
@@ -40,6 +53,7 @@
         android:id="@+id/mainactivity_second_linearlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
         android:orientation="vertical">
 
         <android.support.v4.widget.SwipeRefreshLayout
