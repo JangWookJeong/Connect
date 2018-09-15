@@ -26,23 +26,12 @@ public class MainActivity extends AppCompatActivity {
     }/////onCreate
 
     private void createcomponent() {
-        Mainactivity_RecyclerView = findViewById(R.id.mainactivity_recyclerview);
-        Mainactivity_Refreshlayout = findViewById(R.id.mainactivity_refreshlayout);
+      /*  Mainactivity_RecyclerView = findViewById(R.id.mainactivity_recyclerview);
+        Mainactivity_Refreshlayout = findViewById(R.id.mainactivity_refreshlayout);*/
     }///createcomponent
 
     private void addcomponent() {
 
-        Mainactivity_RecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-            }
-        });
     }/////addcomponent
 
 
