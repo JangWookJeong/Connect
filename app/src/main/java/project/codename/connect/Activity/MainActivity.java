@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView Mainactivity_Textview_Login;
     private FirebaseAuth.AuthStateListener authStateListener;
     private FirebaseAuth mAuth;
+    private ImageButton Home_Button,Mypage_Button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
         Mainactivity_Textview_Login = findViewById(R.id.mainactivity_textview_login);
         mAuth = FirebaseAuth.getInstance();
 
+        Home_Button = findViewById(R.id.main_bottom_home_button);
+        Mypage_Button = findViewById(R.id.main_bottom_myPage_button);
+
       /*  Mainactivity_RecyclerView = findViewById(R.id.mainactivity_recyclerview);
         Mainactivity_Refreshlayout = findViewById(R.id.mainactivity_refreshlayout);*/
     }///createcomponent
@@ -65,6 +70,19 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             }
         });/////
+        Home_Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "현재화면 입니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
+        Mypage_Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),MypageActivity.class));
+                finish();
+            }
+        });
 
     }/////addcomponent
 

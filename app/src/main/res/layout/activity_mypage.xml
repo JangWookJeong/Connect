@@ -1,9 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.MypageActivity">
+    android:orientation="vertical"
+    tools:context=".Activity.MypageActivity"
+    android:background="#dad8d8">
 
-</LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/mypage_imageview_backgroundImage"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/image2" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/mypage_circleimageview_profile"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="15dp"
+            android:src="@drawable/image3" />
+
+        <TextView
+            android:id="@+id/mypage_textview_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="29dp"
+            android:layout_marginTop="4dp"
+            android:text="장욱정"
+            android:textSize="20dp"
+            android:textStyle="bold"
+
+            android:layout_below="@+id/mypage_circleimageview_profile"/>
+
+    </RelativeLayout>
+
+
+    <include
+        android:id="@+id/mypage_bottom_menu"
+        layout="@layout/bottom_menu_items"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>
