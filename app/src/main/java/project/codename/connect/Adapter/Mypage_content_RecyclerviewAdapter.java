@@ -5,4 +5,7 @@ import android.view.View;
 
 public class Mypage_content_RecyclerviewAdapter  {
 
+    public Mypage_content_RecyclerviewAdapter() {
+
+    }
 }
