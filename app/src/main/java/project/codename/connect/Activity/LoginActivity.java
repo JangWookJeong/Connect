@@ -123,7 +123,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if (task.isSuccessful()) {
-                            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
                             finish();
                         } else {
 
