@@ -8,7 +8,7 @@ import project.codename.connect.Fragment.Mypage_content_Fragment;
 
 public class Mypage_Tabmenu_Adapter extends FragmentStatePagerAdapter {
 
-    private static final int PAGE_NUMBER = 5;
+    private static final int PAGE_NUMBER = 4;
 
     public Mypage_Tabmenu_Adapter(FragmentManager fm) {
         super(fm);
@@ -25,8 +25,6 @@ public class Mypage_Tabmenu_Adapter extends FragmentStatePagerAdapter {
             case 2:
                 return Mypage_content_Fragment.newInstance();
             case 3:
-                return Mypage_content_Fragment.newInstance();
-            case 4:
                 return Mypage_content_Fragment.newInstance();
         }
         return null;
@@ -48,8 +46,6 @@ public class Mypage_Tabmenu_Adapter extends FragmentStatePagerAdapter {
             case 2:
                 return "사진";
             case 3:
-                return "구독";
-            case 4:
                 return "정보";
 
             default:

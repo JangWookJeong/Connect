@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="28dp"
             android:gravity="right">
@@ -24,8 +24,19 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
                 android:text="로그인"
-                android:textSize="17dp" />
-        </LinearLayout>
+                android:textSize="17dp"
+                android:visibility="visible"/>
+
+            <ImageButton
+                android:id="@+id/main_activity_imagebutton_apps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/apps"
+                android:layout_gravity="right"
+                android:visibility="invisible"
+                android:layout_marginRight="7dp"
+                android:layout_marginTop="2dp"/>
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -52,27 +63,45 @@
 
     </LinearLayout>
 
-    <!--<LinearLayout
+    <RelativeLayout
         android:id="@+id/mainactivity_second_linearlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
-        android:orientation="vertical">
+        android:layout_above="@+id/mainactivity_menu_include"
+        android:layout_below="@+id/mainactivity_first_linearlayout"
+        android:layout_marginTop="7dp">
 
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/mainactivity_refreshlayout"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/mainactivity_recyclerview"
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/mainactivity_refreshlayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
-            </android.support.v7.widget.RecyclerView>
-        </android.support.v4.widget.SwipeRefreshLayout>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/mainactivity_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible">
 
-    </LinearLayout>-->
+                </android.support.v7.widget.RecyclerView>
+
+
+            </android.support.v4.widget.SwipeRefreshLayout>
+
+            <TextView
+                android:id="@+id/main_activity_notcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible"
+                android:text="등록된 컨텐츠가 없습니다."
+                android:gravity="center"/>
+
+        </FrameLayout>
+
+    </RelativeLayout>
 
     <include
         android:id="@+id/mainactivity_menu_include"

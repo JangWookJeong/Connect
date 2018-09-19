@@ -46,12 +46,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/mypage_textview_name"
-            android:layout_marginBottom="6dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginRight="5dp"
             android:layout_marginTop="4dp"
             android:maxLength="50"
             android:maxLines="2"
-            android:text="추수의 계절 가을이 왔습니다. 오늘도 좋은하루돠시길." />
+            android:text="추수의 계절 가을이 왔습니다. 오늘도 좋은하루돠시길 바랍니다. 모두행복하시구요" />
 
     </RelativeLayout>
 
@@ -62,40 +63,43 @@
         android:layout_above="@+id/mypage_bottom_menu"
         android:layout_below="@+id/mypage_first_layout">
 
-        <android.support.design.widget.CoordinatorLayout
-            android:id="@+id/mypage_coordinatorlayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#ffffff">
 
-            <android.support.design.widget.TabLayout
-                android:id="@+id/mypage_tablayout_menu"
+
+            <android.support.design.widget.CoordinatorLayout
+                android:id="@+id/mypage_coordinatorlayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:elevation="1dp"
-                app:tabGravity="fill"
-                app:tabIndicatorColor="@color/colorPrimaryDark"
-                app:tabMode="fixed"
-                app:tabSelectedTextColor="@color/colorPrimaryDark"
-                app:tabTextColor="@android:color/black" />
+                android:background="#ffffff">
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/mypage_tablayout_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:elevation="1dp"
+                    app:tabGravity="fill"
+                    app:tabIndicatorColor="@color/colorPrimaryDark"
+                    app:tabMode="fixed"
+                    app:tabSelectedTextColor="@color/colorPrimaryDark"
+                    app:tabTextColor="@android:color/black" />
 
 
-            <android.support.v4.view.ViewPager
-                android:id="@+id/mypage_menu_viewpager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/mypage_menu_viewpager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
-        </android.support.design.widget.CoordinatorLayout>
+            </android.support.design.widget.CoordinatorLayout>
+
 
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/mypage_three_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp">
 
     </RelativeLayout>
-
 
     <include
         android:id="@+id/mypage_bottom_menu"
