@@ -17,23 +17,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.github.irshulx.Editor;
 import com.github.irshulx.EditorListener;
+import com.github.irshulx.models.EditorContent;
 import com.github.irshulx.models.EditorTextStyle;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-
 import project.codename.connect.R;
 import top.defaults.colorpicker.ColorPickerPopup;
 
 
 public class PostActivity extends AppCompatActivity {
     Editor editor;
-
+    Button Button_ok;
+    EditorContent content1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,9 +40,27 @@ public class PostActivity extends AppCompatActivity {
         editor = (Editor) findViewById(R.id.editor);
         editor.removeAllViews();
         setUpEditor();
+        createpomponent();
+        addlistener();
 
 
     }
+
+    private void addlistener() {
+        Button_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String content = editor.getContentAsHTML();
+                content1 = editor.getContent();
+
+
+            }
+        });
+    }
+
+    private void createpomponent() {
+        Button_ok = findViewById(R.id.postactivity_button_ok);
+    }/////
 
     private void setUpEditor() {
         findViewById(R.id.action_h1).setOnClickListener(new View.OnClickListener() {

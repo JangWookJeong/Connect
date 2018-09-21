@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp">
+            <ImageButton
+                android:id="@+id/Joining_backspaceButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="26dp"
+                android:onClick="Joining_BackSpace"
+                android:background="@drawable/keyboard_arrow_left"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="15dp"
+                android:text="회원가입"
+                android:textSize="19dp"
+                android:textColor="#000000"
+                />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/Login_Input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Project_Logo"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="70dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/signupactivity_edittext_email"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/signupactivity_stroke_item"
+                android:gravity="center"
+                android:hint="Email"
+                android:textColorHint="#262626"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:inputType="textEmailAddress"
+                android:textColor="#000000"/>
+
+            <EditText
+                android:id="@+id/signupactivity_edittext_password"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/signupactivity_stroke_item"
+                android:gravity="center"
+                android:hint="Password"
+                android:textColorHint="#262626"
+                android:inputType="textPassword"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="#000000"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/signupactivity_button_next"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#ffffff"
+            android:text="다음"
+            android:textColor="#000000" />
+    </LinearLayout>
+</RelativeLayout>

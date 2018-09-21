@@ -64,7 +64,7 @@
         android:layout_alignParentBottom="true">
 
         <Button
-            android:id="@+id/loginactivity_button_joining"
+            android:id="@+id/loginactivity_button_signup"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -73,7 +73,7 @@
             android:textColor="#000000" />
 
         <Button
-            android:id="@+id/loginactivity_button_login"
+            android:id="@+id/loginactivity_button_signin"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

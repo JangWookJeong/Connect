@@ -26,17 +26,17 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-import project.codename.connect.Connect_DAO.Connect_DAO;
 import project.codename.connect.R;
 
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
     private static final int RC_SIGN_IN = 1001;
-    private Button Login_Button, Joining_Button;
+    private Button Signin_Button, Signup_Button;
     private int PermissionCheck;
     private SignInButton Google_LoginButton;
     private FirebaseAuth mAuth;
     private GoogleApiClient mGoogleApiClient;
     private EditText UserEmail, UserPassword;
+
 
 
     @Override
@@ -80,8 +80,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
 
         Google_LoginButton = findViewById(R.id.loginactivity_signin_button);
-        Login_Button = findViewById(R.id.loginactivity_button_login);
-        Joining_Button = findViewById(R.id.loginactivity_button_joining);
+        Signin_Button = findViewById(R.id.loginactivity_button_signin);
+        Signup_Button = findViewById(R.id.loginactivity_button_signup);
 
     }/////
 
@@ -98,7 +98,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             }/////onclick
         });/////Google_LoginButton
 
-        Login_Button.setOnClickListener(new View.OnClickListener() {
+        Signin_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -107,10 +107,12 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             }
         });/////Login_Button
 
-        Joining_Button.setOnClickListener(new View.OnClickListener() {
+        Signup_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //회원가입으로 이동
+                startActivity(new Intent(getApplicationContext(),SignupActivity.class));
+                finish();
             }
         });/////Joining_Button
 

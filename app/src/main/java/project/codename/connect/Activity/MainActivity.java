@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Login_Checked();
         createcomponent();
         addcomponent();
@@ -110,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
 
     }/////addcomponent
 
-    @Override
+   /* @Override
     protected void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(authStateListener);
@@ -120,5 +121,5 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         mAuth.removeAuthStateListener(authStateListener);
-    }
+    }*/
 }/////MainActivity
