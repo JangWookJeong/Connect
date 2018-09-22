@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/Project_Logo"
+        android:id="@+id/loginactivity_Imageview_project_logo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
@@ -16,10 +16,10 @@
         android:id="@+id/loginactivity_linearlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/Project_Logo"
+        android:layout_below="@+id/loginactivity_Imageview_project_logo"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="100dp"
         android:orientation="vertical">
 
         <EditText
@@ -28,8 +28,8 @@
             android:layout_height="50dp"
             android:background="@drawable/loginactivity_stroke_item"
             android:gravity="center"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
+            android:hint="Id"
+            android:inputType="text"
             android:textColor="#cacaca"
             android:textColorHint="#312c2c" />
 

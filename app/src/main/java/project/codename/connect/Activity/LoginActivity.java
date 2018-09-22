@@ -38,7 +38,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private EditText UserEmail, UserPassword;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,7 +101,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             @Override
             public void onClick(View view) {
 
-                start_Login(UserEmail.getText().toString(), UserPassword.getText().toString());
+                start_Login(UserEmail.getText().toString() + "@connect.com", UserPassword.getText().toString());
 
             }
         });/////Login_Button
@@ -111,7 +110,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             @Override
             public void onClick(View view) {
                 //회원가입으로 이동
-                startActivity(new Intent(getApplicationContext(),SignupActivity.class));
+                startActivity(new Intent(getApplicationContext(), SignupActivity.class));
                 finish();
             }
         });/////Joining_Button
@@ -170,7 +169,5 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }/////firebaseAuthWithGoogle
 
     @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-    }/////onConnectionFailed
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {}/////onConnectionFailed
 }/////

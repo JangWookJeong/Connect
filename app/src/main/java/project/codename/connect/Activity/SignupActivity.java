@@ -48,11 +48,11 @@ public class SignupActivity extends AppCompatActivity {
                 if (Signup_Email.getText().length() != 0) {
 
                     //이메일주소를 입력한경우
-                    if (Signup_Email.getText().toString().contains("@") && Signup_Email.getText().toString().contains(".")) {
+
                         //이메일 형식을 준수한경우
                         if (Signup_Password.getText().length() >= 6) {
                             //패스워드를 6자 이상 입력한경우
-                            mAuth.createUserWithEmailAndPassword(Signup_Email.getText().toString(), Signup_Password.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            mAuth.createUserWithEmailAndPassword(Signup_Email.getText().toString()+"@connect.com", Signup_Password.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
 
@@ -70,10 +70,7 @@ public class SignupActivity extends AppCompatActivity {
                             //패스워드를 6미만 입력한경우
                             Toast.makeText(SignupActivity.this, "비밀번호는 6자리 이상 입력해주세요", Toast.LENGTH_SHORT).show();
                         }
-                    } else {
-                        //이메일 형식을 준수하지 않은경우
-                        Toast.makeText(SignupActivity.this, "이메일 형식으로 입력해주세요.", Toast.LENGTH_SHORT).show();
-                    }
+
                 } else {
                     //이메일주소를 입력하지 않은경우
                     Toast.makeText(SignupActivity.this, "이메일 주소를 입력해주세요.", Toast.LENGTH_SHORT).show();
