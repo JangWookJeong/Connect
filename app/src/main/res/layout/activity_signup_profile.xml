@@ -51,8 +51,7 @@
             android:scaleType="fitXY"
             android:src="@drawable/profilebackground" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/signup_profileactivity_circleimageview_profile_image"
             android:layout_width="match_parent"
             android:layout_height="100dp"
@@ -74,216 +73,201 @@
             android:textColor="#1a76e6" />
     </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/signup_profileactivity_linearlayout_three_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/signup_profileactivity_linearlayout_four_layout"
         android:layout_below="@+id/Profile_second_layout"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="7dp"
-                android:layout_marginLeft="8dp"
-                android:text="닉네임"
-                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/signup_profileactivity_edittext_nickname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="7dp"
                     android:layout_marginLeft="8dp"
+                    android:text="닉네임"
+                    android:textStyle="bold" />
 
-                    android:layout_weight="5"
-                    android:hint="닉네임을 설정해주세요."
-                    android:textSize="15dp" />
-
-                <TextView
-                    android:id="@+id/signup_profileactivity_textview_setnickname"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:background="#ffffff"
-                    android:text="닉네임 설정"
-                    android:textColor="#1a76e6" />
+                    android:orientation="horizontal">
 
-                <!--<ImageButton
-                    android:id="@+id/signup_profile_imagebutton_nickname_edit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="2dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@drawable/edit" />-->
+                    <TextView
+                        android:id="@+id/signup_profileactivity_edittext_nickname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+
+                        android:layout_weight="5"
+                        android:hint="닉네임을 설정해주세요."
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:id="@+id/signup_profileactivity_textview_setnickname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:background="#ffffff"
+                        android:text="닉네임 설정"
+                        android:textColor="#1a76e6" />
+
+                </LinearLayout>
 
             </LinearLayout>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="7dp"
-                android:layout_marginLeft="8dp"
-                android:text="이름"
-                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/signup_profileactivity_textview_name"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="7dp"
                     android:layout_marginLeft="8dp"
-                    android:layout_weight="2"
-                    android:hint="이름을 설정해주세요.  "
-                    android:textSize="15dp" />
+                    android:text="이름"
+                    android:textStyle="bold" />
 
-
-                <TextView
-                    android:id="@+id/signup_profileactivity_textview_setname"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:background="#ffffff"
-                    android:text="이름 설정"
-                    android:textColor="#1a76e6" />
-                <!--<ImageButton
+                    android:orientation="horizontal">
 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="2dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@drawable/edit" />-->
+
+                    <TextView
+                        android:id="@+id/signup_profileactivity_textview_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="2"
+                        android:hint="이름을 설정해주세요.  "
+                        android:textSize="15dp" />
+
+
+                    <TextView
+                        android:id="@+id/signup_profileactivity_textview_setname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:background="#ffffff"
+                        android:text="이름 설정"
+                        android:textColor="#1a76e6" />
+
+                </LinearLayout>
 
             </LinearLayout>
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="7dp"
-                android:layout_marginLeft="8dp"
-                android:text="성별" />
-
-            <RadioGroup
-                android:id="@+id/signup_profileactivity_radiogroup_setgender"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
-                android:orientation="horizontal"
-              >
-
-                <RadioButton
-                    android:id="@+id/signup_profileactivity_radiobutton_profile_man"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="남자"
-                    android:textColor="#000000" />
-
-                <RadioButton
-                    android:id="@+id/signup_profileactivity_radiobutton_profile_woman"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:text="여자"
-                    android:textColor="#000000" />
-
-            </RadioGroup>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical">
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="7dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="6dp"
-                android:text="생년월일"
-                android:textStyle="bold" />
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/signup_profileactivity_textview_birthday"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="7dp"
                     android:layout_marginLeft="8dp"
-                    android:layout_weight="2"
-                    android:hint="생년월일을 설정해주세요."
-                    android:textSize="15dp" />
+                    android:text="성별"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/signup_profileactivity_radiogroup_setgender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/signup_profileactivity_radiobutton_profile_man"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="남자"
+                        android:textColor="#000000" />
+
+                    <RadioButton
+                        android:id="@+id/signup_profileactivity_radiobutton_profile_woman"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="여자"
+                        android:textColor="#000000" />
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
 
 
                 <TextView
-                    android:id="@+id/signup_profileactivity_textview_setbirthday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:background="#ffffff"
-                    android:text="생년월일 설정"
-                    android:textColor="#1a76e6" />
-                <!--<ImageButton
-                    android:id="@+id/signup_profile_imagebutton_birthday"
-                    android:layout_width="wrap_content"
+                    android:layout_marginBottom="7dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="6dp"
+                    android:text="생년월일"
+                    android:textStyle="bold" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="2dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@drawable/edit" />-->
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/signup_profileactivity_textview_birthday"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="2"
+                        android:hint="생년월일을 설정해주세요."
+                        android:textSize="15dp" />
+
+
+                    <TextView
+                        android:id="@+id/signup_profileactivity_textview_setbirthday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:background="#ffffff"
+                        android:text="생년월일 설정"
+                        android:textColor="#1a76e6" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
         </LinearLayout>
-
-
-    </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/signup_profileactivity_linearlayout_four_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/signupactivity_profile_linearlayout_sendlayout"
-        android:layout_marginBottom="10dp">
+        android:layout_marginBottom="5dp">
 
         <TextView
             android:layout_width="match_parent"
