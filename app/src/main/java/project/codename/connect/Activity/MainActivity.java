@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener authStateListener;
     private FirebaseAuth mAuth;
     private ImageButton Home_Button, Mypage_Button, Main_apps, message;
-
+    private  FirebaseUser user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
+                 user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     //유저가 로그인을 한경우
                     Mainactivity_Textview_Login.setVisibility(View.INVISIBLE);
@@ -67,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
         Mainactivity_Refresh = findViewById(R.id.mainactivity_refreshlayout);
 
         message = findViewById(R.id.main_bottom_notification_button);
+
+        Main_apps = findViewById(R.id.main_activity_imagebutton_apps);
 
       /*  Mainactivity_RecyclerView = findViewById(R.id.mainactivity_recyclerview);
         Mainactivity_Refreshlayout = findViewById(R.id.mainactivity_refreshlayout);*/
@@ -105,6 +107,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), PostActivity.class));
+            }
+        });
+
+        Main_apps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mAuth.signOut();
+                    //유저가 로그아웃을 한경우
+                    Mainactivity_Textview_Login.setVisibility(View.VISIBLE);
+                    Main_apps.setVisibility(View.INVISIBLE);
+
+
+
             }
         });
 

@@ -53,6 +53,7 @@ public class SignupProfileActivity extends AppCompatActivity {
     private ImageView Profile_Background_Image;
     private Dialog Profile_dialog, Profile_Checkbox_dialog;
     private TextView Profile_Change_Button, Profile_Background_Change_Button;
+    private ProgressDialog LoginDialog;
 
 
     @Override
@@ -77,6 +78,13 @@ public class SignupProfileActivity extends AppCompatActivity {
         if (Profile_Checkbox_dialog == null) {
             Profile_Checkbox_dialog = new Dialog(SignupProfileActivity.this);
         }
+
+        if (LoginDialog == null) {
+            LoginDialog = new ProgressDialog(SignupProfileActivity.this);
+        }
+        LoginDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        LoginDialog.setMessage("잠시만 기다려주세요.");
+
 
         Profile_dialog.setContentView(R.layout.profile_custom_imagechange_button);
         Profile_Checkbox_dialog.setContentView(R.layout.profile_custom_checkbox);
@@ -194,6 +202,7 @@ public class SignupProfileActivity extends AppCompatActivity {
                     if (Name.getText().toString().length() > 0 && Name.getText() != null) {
                         if (Profile_Gender_Result.toString().length() > 0 && Profile_Gender_Result != null) {
                             if (BirthDay.getText().toString().length() > 0 && BirthDay.getText() != null) {
+                                LoginDialog.show();
                                 new Profile_Asyctask().execute();
                             } else {
                                 //생년월일을 입력하지 않은경우
@@ -301,7 +310,6 @@ public class SignupProfileActivity extends AppCompatActivity {
         private List<Profile_RegisterDTO> list;
         private Profile_RegisterDTO ProfileDTO;
         private MypageDAO dao;
-        private ProgressDialog LoginDialog;
 
 
         @Override
@@ -324,10 +332,6 @@ public class SignupProfileActivity extends AppCompatActivity {
             list = new ArrayList<>();
             ProfileDTO = new Profile_RegisterDTO();
             dao = new MypageDAO();
-            LoginDialog = new ProgressDialog(SignupProfileActivity.this);
-            LoginDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            LoginDialog.setMessage("잠시만 기다려주세요.");
-            LoginDialog.show();
 
 
         }
