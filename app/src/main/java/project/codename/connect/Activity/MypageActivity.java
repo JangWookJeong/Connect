@@ -11,6 +11,7 @@ import android.widget.TableLayout;
 import android.widget.Toast;
 
 import project.codename.connect.Adapter.Mypage_Tabmenu_Adapter;
+import project.codename.connect.Connect_DAO.MypageDAO;
 import project.codename.connect.Fragment.Mypage_content_Fragment;
 import project.codename.connect.R;
 
@@ -19,7 +20,8 @@ public class MypageActivity extends AppCompatActivity {
     private TabLayout Mypage_Tab_Menu;
     private ViewPager Mypage_ViewPager;
     private Mypage_Tabmenu_Adapter tab_adapter;
-    private ImageButton Home_Button,Mypage_Button;
+    private ImageButton Home_Button, Mypage_Button;
+    private MypageDAO Dao;
 
 
     @Override
@@ -28,12 +30,19 @@ public class MypageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mypage);
         createcomponent();
         addcomponent();
+        call_profile();
     }/////onCreate
 
+    private void call_profile() {
+
+        Dao.Call_User_Profile();
+    }/////
 
 
     private void createcomponent() {
-        tab_adapter = new Mypage_Tabmenu_Adapter(getSupportFragmentManager());
+        if (tab_adapter == null) {
+            tab_adapter = new Mypage_Tabmenu_Adapter(getSupportFragmentManager());
+        }
         Mypage_Tab_Menu = findViewById(R.id.mypage_tablayout_menu);
         Mypage_ViewPager = findViewById(R.id.mypage_menu_viewpager);
 
@@ -43,13 +52,17 @@ public class MypageActivity extends AppCompatActivity {
         Home_Button = findViewById(R.id.main_bottom_home_button);
         Mypage_Button = findViewById(R.id.main_bottom_myPage_button);
 
+        if (Dao == null) {
+            Dao = new MypageDAO();
+        }
+
     }/////createcomponent
 
     private void addcomponent() {
         Home_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 finish();
             }
         });/////Home_Button

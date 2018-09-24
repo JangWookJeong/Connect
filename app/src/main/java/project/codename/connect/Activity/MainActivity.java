@@ -28,8 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView Mainactivity_Textview_Login;
     private FirebaseAuth.AuthStateListener authStateListener;
     private FirebaseAuth mAuth;
-    private ImageButton Home_Button,Mypage_Button,Main_apps,message;
-
+    private ImageButton Home_Button, Mypage_Button, Main_apps, message;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         Mypage_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),MypageActivity.class));
+                startActivity(new Intent(getApplicationContext(), MypageActivity.class));
                 finish();
             }
         });/////Mypage_Button
@@ -105,13 +104,13 @@ public class MainActivity extends AppCompatActivity {
         message.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),PostActivity.class));
+                startActivity(new Intent(getApplicationContext(), PostActivity.class));
             }
         });
 
     }/////addcomponent
 
-   /* @Override
+    @Override
     protected void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(authStateListener);
@@ -121,5 +120,5 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         mAuth.removeAuthStateListener(authStateListener);
-    }*/
+    }/////
 }/////MainActivity

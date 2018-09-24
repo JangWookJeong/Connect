@@ -101,7 +101,16 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             @Override
             public void onClick(View view) {
 
-                start_Login(UserEmail.getText().toString() + "@connect.com", UserPassword.getText().toString());
+                if (UserEmail.getText().length() != 0 && UserEmail.getText().toString().contains("@") && UserEmail.getText().toString().contains(".")) {
+                    if (UserPassword.getText().length() > 6 && UserPassword.getText().length() != 0) {
+                        start_Login(UserEmail.getText().toString(), UserPassword.getText().toString());
+                    } else {
+                        Toast.makeText(LoginActivity.this, "비밀번호를 6자리 이상 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(LoginActivity.this, "이메일 형식으로 입력해주세요.", Toast.LENGTH_SHORT).show();
+                }
+
 
             }
         });/////Login_Button
@@ -169,5 +178,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }/////firebaseAuthWithGoogle
 
     @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {}/////onConnectionFailed
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+    }/////onConnectionFailed
 }/////

@@ -50,25 +50,30 @@ public class SignupActivity extends AppCompatActivity {
                     //이메일주소를 입력한경우
 
                         //이메일 형식을 준수한경우
-                        if (Signup_Password.getText().length() >= 6) {
-                            //패스워드를 6자 이상 입력한경우
-                            mAuth.createUserWithEmailAndPassword(Signup_Email.getText().toString()+"@connect.com", Signup_Password.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(Signup_Email.getText().toString().contains("@") && Signup_Email.getText().toString().contains(".")){
 
-                                    if (task.isSuccessful()) {
-                                        //회원가입을 성공한경우
-                                        startActivity(new Intent(getApplicationContext(), SignupProfileActivity.class));
-                                        finish();
-                                    } else {
-                                        //회원가입을 실패 한경우
-                                        Toast.makeText(SignupActivity.this, "회원가입을 실패 했습니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
+                            if (Signup_Password.getText().length() >= 6) {
+                                //패스워드를 6자 이상 입력한경우
+                                mAuth.createUserWithEmailAndPassword(Signup_Email.getText().toString(), Signup_Password.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+
+                                        if (task.isSuccessful()) {
+                                            //회원가입을 성공한경우
+                                            startActivity(new Intent(getApplicationContext(), SignupProfileActivity.class));
+                                            finish();
+                                        } else {
+                                            //회원가입을 실패 한경우
+                                            Toast.makeText(SignupActivity.this, "회원가입을 실패 했습니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
+                                        }
                                     }
-                                }
-                            });
-                        } else {
-                            //패스워드를 6미만 입력한경우
-                            Toast.makeText(SignupActivity.this, "비밀번호는 6자리 이상 입력해주세요", Toast.LENGTH_SHORT).show();
+                                });
+                            } else {
+                                //패스워드를 6미만 입력한경우
+                                Toast.makeText(SignupActivity.this, "비밀번호는 6자리 이상 입력해주세요", Toast.LENGTH_SHORT).show();
+                            }
+                        }else{
+                            Toast.makeText(SignupActivity.this, "이메일 형식으로 입력해주세요", Toast.LENGTH_SHORT).show();
                         }
 
                 } else {

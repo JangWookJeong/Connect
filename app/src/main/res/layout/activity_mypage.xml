@@ -31,6 +31,23 @@
             android:src="@drawable/image3" />
 
         <TextView
+            android:id="@+id/mypageactivity_button_setprofile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/mypage_imageview_backgroundImage"
+            android:gravity="center"
+            android:layout_marginRight="60dp"
+            android:layout_marginTop="20dp"
+            android:paddingTop="3dp"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:paddingBottom="3dp"
+            android:background="@drawable/mypageactivity_stroke_item"
+            android:text="프로필 설정"
+            />
+
+        <TextView
             android:id="@+id/mypage_textview_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
