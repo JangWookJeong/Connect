@@ -23,6 +23,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import project.codename.connect.Activity.MypageActivity;
 import project.codename.connect.Connect_DTO.Profile_RegisterDTO;
 
 public class MypageDAO {
@@ -34,6 +35,7 @@ public class MypageDAO {
     private StorageReference StorageRef;
     private Uri Background_File, Profile_File;
     private String Name;
+    Uri background_Url, Profile_Url;
 
     public MypageDAO() {
         auth = FirebaseAuth.getInstance();
@@ -42,6 +44,7 @@ public class MypageDAO {
         list_value = new ArrayList<>();
         list_key = new ArrayList<>();
     }///constructor
+
 
     public void Register_Profile(final Profile_RegisterDTO dto) {
         //프로필 데이터베이스 등록
@@ -52,18 +55,39 @@ public class MypageDAO {
 
         final StorageReference riverRef1 = StorageRef.child("관리자").child("회원관리").child("회원").child(dto.getName() + "/" + Background_File.getLastPathSegment());
         final StorageReference riverRef2 = StorageRef.child("관리자").child("회원관리").child("회원").child(dto.getName() + "/" + Profile_File.getLastPathSegment());
-
         final UploadTask task1 = riverRef1.putFile(Background_File);
         final UploadTask task2 = riverRef2.putFile(Profile_File);
 
-        task1.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        Task<Uri> urlTask = task1.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
             @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                task2.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+
+                if (!task.isSuccessful()) {
+                    throw task.getException();
+                }
+                return riverRef1.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                Uri uri = task.getResult();
+                background_Url = uri;
+                Task<Uri> urlTask = task2.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                     @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        dto.setProfile_Background_Image(riverRef1.getDownloadUrl().toString());
-                        dto.setProfile_Image(riverRef2.getDownloadUrl().toString());
+                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+
+                        if (!task.isSuccessful()) {
+                            throw task.getException();
+                        }
+                        return riverRef2.getDownloadUrl();
+                    }
+                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        Uri uri = task.getResult();
+                        Profile_Url = uri;
+                        dto.setProfile_Image(Profile_Url.toString());
+                        dto.setProfile_Background_Image(background_Url.toString());
                         dto.setProfile_isRegister(true);
                         Database.getReference().child("Connect").child("관리자").child("회원관리").child("회원정보").child(auth.getCurrentUser().getUid()).child(dto.getName()).setValue(dto).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
@@ -74,11 +98,36 @@ public class MypageDAO {
                     }
                 });
             }
-        });
+        });//////////task1
     }/////Register_Profile
 
-    public void Call_User_Profile() {
+    public void Call_User_Profile(final MypageActivity.onGetuserInfo getInfo) {
 
+        Database.getReference().child("Connect").child("관리자").child("회원관리").child("회원정보").child(auth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                list_key.clear();
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    list_key.add(data.getKey());
+                }
+                for (int i = 0; i < list_key.size(); i++) {
+                    Database.getReference().child("Connect").child("관리자").child("회원관리").child("회원정보").child(auth.getCurrentUser().getUid()).child(list_key.get(i).toString()).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            getInfo.getuserInfo(dataSnapshot.getValue(Profile_RegisterDTO.class));
+
+                            MypageActivity mc = new MypageActivity();
+                            mc.setGetInfo(getInfo);
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {}
+                    });
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
+        });
     }/////Call_User_Profile
+
 
 }///MypageDAO

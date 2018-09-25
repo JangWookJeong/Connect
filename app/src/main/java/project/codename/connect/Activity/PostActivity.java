@@ -16,23 +16,28 @@ import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
 import com.github.irshulx.Editor;
 import com.github.irshulx.EditorListener;
 import com.github.irshulx.models.EditorContent;
 import com.github.irshulx.models.EditorTextStyle;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+
 import project.codename.connect.R;
 import top.defaults.colorpicker.ColorPickerPopup;
 
 
 public class PostActivity extends AppCompatActivity {
     Editor editor;
-    Button Button_ok;
+    TextView Post_Upload, Post_Cancel;
     EditorContent content1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,19 +52,29 @@ public class PostActivity extends AppCompatActivity {
     }
 
     private void addlistener() {
-        Button_ok.setOnClickListener(new View.OnClickListener() {
+        Post_Upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String content = editor.getContentAsHTML();
-                content1 = editor.getContent();
-
-
+                Post_Upload.setTextColor(Color.BLUE);
+                startActivity(new Intent(getApplicationContext(), MypageActivity.class));
+                finish();
             }
         });
-    }
+
+        Post_Cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Post_Cancel.setTextColor(Color.BLUE);
+                startActivity(new Intent(getApplicationContext(), MypageActivity.class));
+                finish();
+            }
+        });
+    }/////addlistener
 
     private void createpomponent() {
-        Button_ok = findViewById(R.id.postactivity_button_ok);
+        Post_Upload = findViewById(R.id.postactivity_textview_upload);
+        Post_Cancel = findViewById(R.id.postactivity_textview_cancel);
+
     }/////
 
     private void setUpEditor() {

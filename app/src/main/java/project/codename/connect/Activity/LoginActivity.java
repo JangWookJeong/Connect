@@ -26,6 +26,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import project.codename.connect.Connect_DAO.LoginDAO;
 import project.codename.connect.R;
 
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
@@ -76,8 +77,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         UserEmail = findViewById(R.id.loginactivity_edittext_useremail);
         UserPassword = findViewById(R.id.loginactivity_edittext_userpassword);
-
-
         Google_LoginButton = findViewById(R.id.loginactivity_signin_button);
         Signin_Button = findViewById(R.id.loginactivity_button_signin);
         Signup_Button = findViewById(R.id.loginactivity_button_signup);
@@ -164,11 +163,16 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            LoginDAO dao = new LoginDAO();
+                            //구글 로그인중에 프로필 설정여부체크
 
+                            //프로필 설정시 MainActivity로 이동
                             //구글 로그인 성공
                             FirebaseUser user = mAuth.getCurrentUser();
+                            Toast.makeText(LoginActivity.this, "userEmail" + user.getEmail() + "IdToken" + user.getIdToken(true), Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
                             finish();
+
                         } else {
                             //구글로그인 실패
                             Toast.makeText(getApplicationContext(), "구글 로그인 실패", Toast.LENGTH_LONG).show();
@@ -177,7 +181,9 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 });
     }/////firebaseAuthWithGoogle
 
+
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
     }/////onConnectionFailed
+
 }/////

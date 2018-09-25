@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -17,17 +18,18 @@
             android:layout_marginTop="5dp"
             android:layout_weight="1"
             android:background="#00000000"
-            android:src="@drawable/menu_home_icon" />
+            android:src="@drawable/menu_home_icon"
+            />
         <!--262d40-->
         <ImageButton
             android:id="@+id/main_bottom_searchbutton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:layout_marginTop="9dp"
+            android:layout_marginTop="5dp"
             android:layout_weight="1"
             android:background="#00000000"
-            android:src="@drawable/menu_video_icon" />
+            android:src="@drawable/play" />
 
         <ImageButton
             android:id="@+id/main_bottom_notification_button"
@@ -37,7 +39,7 @@
             android:layout_marginTop="5dp"
             android:layout_weight="1"
             android:background="#00000000"
-            android:src="@drawable/menu_message_icon" />
+            android:src="@drawable/bookmark" />
 
         <ImageButton
             android:id="@+id/main_bottom_myPage_button"

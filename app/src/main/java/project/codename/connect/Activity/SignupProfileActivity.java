@@ -322,6 +322,8 @@ public class SignupProfileActivity extends AppCompatActivity {
             ProfileDTO.setBirthday(BirthDay.getText().toString());
             ProfileDTO.setKrw(0);
             dao.Register_Profile(ProfileDTO);
+            Profile_Background_Image_Path = "";
+            Profile_Image_Path = "";
 
             return null;
         }
@@ -339,9 +341,9 @@ public class SignupProfileActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            LoginDialog.dismiss();
 
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            LoginDialog.dismiss();
             finish();
         }
 

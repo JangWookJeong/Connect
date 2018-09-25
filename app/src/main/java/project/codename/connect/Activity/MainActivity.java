@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView Mainactivity_Textview_Login;
     private FirebaseAuth.AuthStateListener authStateListener;
     private FirebaseAuth mAuth;
-    private ImageButton Home_Button, Mypage_Button, Main_apps, message;
+    private ImageButton Home_Button, Mypage_Button, Main_apps, Bookmark,Play;
     private  FirebaseUser user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,9 +66,10 @@ public class MainActivity extends AppCompatActivity {
 
         Mainactivity_Refresh = findViewById(R.id.mainactivity_refreshlayout);
 
-        message = findViewById(R.id.main_bottom_notification_button);
+        Bookmark = findViewById(R.id.main_bottom_notification_button);
 
         Main_apps = findViewById(R.id.main_activity_imagebutton_apps);
+        Play = findViewById(R.id.main_bottom_searchbutton);
 
       /*  Mainactivity_RecyclerView = findViewById(R.id.mainactivity_recyclerview);
         Mainactivity_Refreshlayout = findViewById(R.id.mainactivity_refreshlayout);*/
@@ -93,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(MainActivity.this, "현재화면 입니다.", Toast.LENGTH_SHORT).show();
+                Home_Button.setImageResource(R.drawable.home_black);
             }
         });/////Home_Button
         Mypage_Button.setOnClickListener(new View.OnClickListener() {
@@ -100,13 +102,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), MypageActivity.class));
                 finish();
+                Mypage_Button.setImageResource(R.drawable.person_black);
             }
         });/////Mypage_Button
 
-        message.setOnClickListener(new View.OnClickListener() {
+        Bookmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), PostActivity.class));
+                Bookmark.setImageResource(R.drawable.bookmark_black);
             }
         });
 
@@ -118,8 +121,13 @@ public class MainActivity extends AppCompatActivity {
                     Mainactivity_Textview_Login.setVisibility(View.VISIBLE);
                     Main_apps.setVisibility(View.INVISIBLE);
 
+            }
+        });
 
-
+        Play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Play.setImageResource(R.drawable.play_black);
             }
         });
 

@@ -12,7 +12,7 @@
         android:id="@+id/mypage_first_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="3dp"
+        android:layout_marginBottom="1dp"
         android:background="#ffffff">
 
         <ImageView
@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="105dp"
             android:scaleType="fitXY"
-            android:src="@drawable/image2" />
+            android:src="@drawable/profilebackground" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/mypage_circleimageview_profile"
@@ -28,7 +28,7 @@
             android:layout_height="80dp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="60dp"
-            android:src="@drawable/image3" />
+            android:src="@drawable/profile_icon" />
 
         <TextView
             android:id="@+id/mypageactivity_button_setprofile"
@@ -36,25 +36,24 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/mypage_imageview_backgroundImage"
-            android:gravity="center"
             android:layout_marginRight="60dp"
             android:layout_marginTop="20dp"
-            android:paddingTop="3dp"
+            android:background="@drawable/mypageactivity_stroke_item"
+            android:gravity="center"
+            android:paddingBottom="3dp"
             android:paddingLeft="40dp"
             android:paddingRight="40dp"
-            android:paddingBottom="3dp"
-            android:background="@drawable/mypageactivity_stroke_item"
-            android:text="프로필 설정"
-            />
+            android:paddingTop="3dp"
+            android:text="프로필 설정" />
 
         <TextView
             android:id="@+id/mypage_textview_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/mypage_circleimageview_profile"
-            android:layout_marginLeft="29dp"
+            android:layout_marginLeft="33dp"
             android:layout_marginTop="4dp"
-            android:text="장욱정"
+            android:text="미설정"
             android:textSize="20dp"
             android:textStyle="bold" />
 
@@ -69,7 +68,7 @@
             android:layout_marginTop="4dp"
             android:maxLength="50"
             android:maxLines="2"
-            android:text="추수의 계절 가을이 왔습니다. 오늘도 좋은하루돠시길 바랍니다. 모두행복하시구요" />
+            android:text="등록된 상태메세지가 없습니다." />
 
     </RelativeLayout>
 
@@ -77,36 +76,48 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/mypage_bottom_menu"
+        android:layout_above="@+id/mypageactivity_four_linearlayout"
         android:layout_below="@+id/mypage_first_layout">
 
 
+        <android.support.design.widget.CoordinatorLayout
+            android:id="@+id/mypage_coordinatorlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff">
 
-            <android.support.design.widget.CoordinatorLayout
-                android:id="@+id/mypage_coordinatorlayout"
+            <android.support.design.widget.TabLayout
+                android:id="@+id/mypage_tablayout_menu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#ffffff">
-
-                <android.support.design.widget.TabLayout
-                    android:id="@+id/mypage_tablayout_menu"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:elevation="1dp"
-                    app:tabGravity="fill"
-                    app:tabIndicatorColor="@color/colorPrimaryDark"
-                    app:tabMode="fixed"
-                    app:tabSelectedTextColor="@color/colorPrimaryDark"
-                    app:tabTextColor="@android:color/black" />
+                android:elevation="1dp"
+                app:tabGravity="fill"
+                app:tabIndicatorColor="@color/colorPrimaryDark"
+                app:tabMode="fixed"
+                app:tabSelectedTextColor="@color/colorPrimaryDark"
+                app:tabTextColor="@android:color/black" />
 
 
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/mypage_menu_viewpager"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+            <android.support.v4.view.ViewPager
+                android:id="@+id/mypage_menu_viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
-            </android.support.design.widget.CoordinatorLayout>
+        </android.support.design.widget.CoordinatorLayout>
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/write"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="10dp"
+            android:background="#ffffff00"
+            android:src="@drawable/edit"
+            app:backgroundTint="#1a76e6" />
 
     </RelativeLayout>
 
@@ -118,11 +129,20 @@
 
     </RelativeLayout>
 
-    <include
-        android:id="@+id/mypage_bottom_menu"
-        layout="@layout/bottom_menu_items"
+    <LinearLayout
+        android:id="@+id/mypageactivity_four_linearlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:background="#ffffff"
+        android:layout_marginTop="1dp">
+
+        <include
+            android:id="@+id/mypage_bottom_menu"
+            layout="@layout/bottom_menu_items"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+             />
+    </LinearLayout>
 
 </RelativeLayout>
