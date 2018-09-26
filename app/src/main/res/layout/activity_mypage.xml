@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#dad8d8"
     android:orientation="vertical"
-    tools:context=".Activity.MypageActivity">
+    tools:context=".Activity.MypageActivity_Package.MypageActivity">
 
     <RelativeLayout
         android:id="@+id/mypage_first_layout"

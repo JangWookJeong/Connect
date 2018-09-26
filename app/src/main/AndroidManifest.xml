@@ -2,12 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="project.codename.connect">
 
-
-    <!--인터넷 권한-->
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <!--사진첩 권한-->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!-- 인터넷 권한 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 사진첩 권한 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
@@ -18,18 +17,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.MainActivity">
+        <activity android:name=".Activity.HomeActivity_Package.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.LoginActivity" />
-        <activity android:name=".Activity.MypageActivity" />
-        <activity android:name=".Activity.PostActivity" />
-        <activity android:name=".Activity.SignupActivity" />
-        <activity android:name=".Activity.SignupProfileActivity"></activity>
+        <activity android:name=".Activity.LoginActivity_Package.LoginActivity" />
+        <activity android:name=".Activity.MypageActivity_Package.MypageActivity" />
+        <activity android:name=".Activity.MypageActivity_Package.PostActivity" />
+        <activity android:name=".Activity.LoginActivity_Package.SignupActivity" />
+        <activity android:name=".Activity.LoginActivity_Package.SignupProfileActivity" />
+        <activity android:name=".Activity.BookMarkActivity.BookmarkActivity" />
+        <activity android:name=".Activity.VideoActivity.VideoActivity"></activity>
     </application>
 
 </manifest>

@@ -1,18 +1,13 @@
 package project.codename.connect.Connect_DAO;
 
-import android.support.annotation.NonNull;
-
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import project.codename.connect.Activity.LoginActivity;
+import project.codename.connect.Activity.LoginActivity_Package.LoginActivity;
 import project.codename.connect.Connect_DTO.Profile_RegisterDTO;
 
 public class LoginDAO {

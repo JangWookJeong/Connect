@@ -1,29 +1,36 @@
-package project.codename.connect.Activity;
+package project.codename.connect.Activity.MypageActivity_Package;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
+import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TableLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import project.codename.connect.Activity.BookMarkActivity.BookmarkActivity;
+import project.codename.connect.Activity.HomeActivity_Package.MainActivity;
+import project.codename.connect.Activity.VideoActivity.VideoActivity;
 import project.codename.connect.Adapter.Mypage_Tabmenu_Adapter;
 import project.codename.connect.Connect_DAO.MypageDAO;
 import project.codename.connect.Connect_DTO.Profile_RegisterDTO;
-import project.codename.connect.Fragment.Mypage_content_Fragment;
+import project.codename.connect.Custom_Dialog.Custom_Dialog;
 import project.codename.connect.R;
 
 public class MypageActivity extends AppCompatActivity {
@@ -31,7 +38,7 @@ public class MypageActivity extends AppCompatActivity {
     private TabLayout Mypage_Tab_Menu;
     private ViewPager Mypage_ViewPager;
     private Mypage_Tabmenu_Adapter tab_adapter;
-    private ImageButton Home_Button, Mypage_Button;
+    private ImageButton Home_Button, Mypage_Button, Play_Button, Bookmark_Button;
     private MypageDAO Dao;
     private TextView Name, Message;
     private ImageView Background_Uri;
@@ -39,7 +46,7 @@ public class MypageActivity extends AppCompatActivity {
     private FirebaseUser user;
     private FirebaseAuth auth;
     private onGetuserInfo getInfo;
-    ProgressDialog LoginDialog;
+    private ProgressDialog LoginDialog;
     private FloatingActionButton Writer;
 
 
@@ -53,7 +60,7 @@ public class MypageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mypage);
         loadUserInfo();
         createcomponent();
-        addcomponent();
+        addlistener();
         call_profile();
     }/////onCreate
 
@@ -69,7 +76,9 @@ public class MypageActivity extends AppCompatActivity {
                         Name.setText(dto.getName());
                         Glide.with(getApplicationContext()).load(dto.getProfile_Background_Image()).into(Background_Uri);
                         Glide.with(getApplicationContext()).load(dto.getProfile_Image()).into(Profile_Uri);
-                        LoginDialog.dismiss();
+
+                        Custom_Dialog.hideLoading();
+
                     }
                 }
             };
@@ -81,6 +90,8 @@ public class MypageActivity extends AppCompatActivity {
 
         String email = user.getEmail();
         String emailcheck = email.substring(email.indexOf("@") + 1, email.indexOf("."));
+        Name.setText("");
+        Message.setText("");
         if (emailcheck.toLowerCase().equals("gmail")) {
             Name.setText(user.getDisplayName());
         } else {
@@ -100,20 +111,16 @@ public class MypageActivity extends AppCompatActivity {
         Mypage_Tab_Menu.setupWithViewPager(Mypage_ViewPager);
         Home_Button = findViewById(R.id.main_bottom_home_button);
         Mypage_Button = findViewById(R.id.main_bottom_myPage_button);
+        Mypage_Button.setSelected(true);
+        Bookmark_Button = findViewById(R.id.main_bottom_notification_button);
+        Play_Button = findViewById(R.id.main_bottom_searchbutton);
         Name = findViewById(R.id.mypage_textview_name);
         Message = findViewById(R.id.mypage_textview_profilecontent);
         Background_Uri = findViewById(R.id.mypage_imageview_backgroundImage);
         Profile_Uri = findViewById(R.id.mypage_circleimageview_profile);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-
         Writer = findViewById(R.id.write);
-
-        if (LoginDialog == null) {
-            LoginDialog = new ProgressDialog(MypageActivity.this);
-            LoginDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-
-        }
         if (Dao == null) {
             Dao = new MypageDAO();
         }
@@ -121,7 +128,7 @@ public class MypageActivity extends AppCompatActivity {
 
     }/////createcomponent
 
-    private void addcomponent() {
+    private void addlistener() {
         Home_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -133,14 +140,29 @@ public class MypageActivity extends AppCompatActivity {
         Mypage_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MypageActivity.this, "현재페이지 입니다.", Toast.LENGTH_SHORT).show();
             }
-        });
+        });/////Mypage_Button
+
+        Bookmark_Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), BookmarkActivity.class));
+                finish();
+
+            }
+        });/////Bookmark
+        Play_Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), VideoActivity.class));
+                finish();
+            }
+        });/////
 
         Writer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),PostActivity.class));
+                startActivity(new Intent(getApplicationContext(), PostActivity.class));
             }
         });
     }/////addcomponent
@@ -161,7 +183,9 @@ public class MypageActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            LoginDialog.show();
+
+            Custom_Dialog.showLoading(MypageActivity.this);
+            /*LoginDialog.show();*/
         }
 
         @Override

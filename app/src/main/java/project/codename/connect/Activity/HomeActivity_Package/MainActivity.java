@@ -1,4 +1,4 @@
-package project.codename.connect.Activity;
+package project.codename.connect.Activity.HomeActivity_Package;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -14,6 +14,10 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import project.codename.connect.Activity.BookMarkActivity.BookmarkActivity;
+import project.codename.connect.Activity.LoginActivity_Package.LoginActivity;
+import project.codename.connect.Activity.MypageActivity_Package.MypageActivity;
+import project.codename.connect.Activity.VideoActivity.VideoActivity;
 import project.codename.connect.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,8 +32,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView Mainactivity_Textview_Login;
     private FirebaseAuth.AuthStateListener authStateListener;
     private FirebaseAuth mAuth;
-    private ImageButton Home_Button, Mypage_Button, Main_apps, Bookmark,Play;
-    private  FirebaseUser user;
+    private ImageButton Home_Button, Mypage_Button, Main_apps, Bookmark_Button, Play_Button;
+    private FirebaseUser user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
         Login_Checked();
         createcomponent();
-        addcomponent();
+        addlistener();
     }/////onCreate
 
     private void Login_Checked() {
@@ -45,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                 user = firebaseAuth.getCurrentUser();
+                user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     //유저가 로그인을 한경우
                     Mainactivity_Textview_Login.setVisibility(View.INVISIBLE);
@@ -55,27 +60,29 @@ public class MainActivity extends AppCompatActivity {
         };
     }/////Login_Checked
 
+    public void asdasdasd(){
+
+        Toast.makeText(this, "asdasd", Toast.LENGTH_SHORT).show();
+
+    }
+
     private void createcomponent() {
         Mainactivity_Textview_Login = findViewById(R.id.mainactivity_textview_login);
         mAuth = FirebaseAuth.getInstance();
-
         Home_Button = findViewById(R.id.main_bottom_home_button);
+        Home_Button.setSelected(true);
         Mypage_Button = findViewById(R.id.main_bottom_myPage_button);
-
         Main_apps = findViewById(R.id.main_activity_imagebutton_apps);
-
         Mainactivity_Refresh = findViewById(R.id.mainactivity_refreshlayout);
-
-        Bookmark = findViewById(R.id.main_bottom_notification_button);
-
+        Bookmark_Button = findViewById(R.id.main_bottom_notification_button);
         Main_apps = findViewById(R.id.main_activity_imagebutton_apps);
-        Play = findViewById(R.id.main_bottom_searchbutton);
+        Play_Button = findViewById(R.id.main_bottom_searchbutton);
 
       /*  Mainactivity_RecyclerView = findViewById(R.id.mainactivity_recyclerview);
         Mainactivity_Refreshlayout = findViewById(R.id.mainactivity_refreshlayout);*/
     }///createcomponent
 
-    private void addcomponent() {
+    private void addlistener() {
 
         Mainactivity_Refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -92,42 +99,39 @@ public class MainActivity extends AppCompatActivity {
         });/////Mainactivity_Textview_Login
         Home_Button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "현재화면 입니다.", Toast.LENGTH_SHORT).show();
-                Home_Button.setImageResource(R.drawable.home_black);
-            }
+            public void onClick(View view) {}
         });/////Home_Button
         Mypage_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), MypageActivity.class));
                 finish();
-                Mypage_Button.setImageResource(R.drawable.person_black);
             }
         });/////Mypage_Button
 
-        Bookmark.setOnClickListener(new View.OnClickListener() {
+        Bookmark_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bookmark.setImageResource(R.drawable.bookmark_black);
+                startActivity(new Intent(getApplicationContext(), BookmarkActivity.class));
+                finish();
             }
-        });
+        });/////Bookmark_Button
 
         Main_apps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mAuth.signOut();
-                    //유저가 로그아웃을 한경우
-                    Mainactivity_Textview_Login.setVisibility(View.VISIBLE);
-                    Main_apps.setVisibility(View.INVISIBLE);
-
+                //유저가 로그아웃을 한경우
+                Mainactivity_Textview_Login.setVisibility(View.VISIBLE);
+                Main_apps.setVisibility(View.INVISIBLE);
             }
-        });
+        });/////Main_apps
 
-        Play.setOnClickListener(new View.OnClickListener() {
+        Play_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Play.setImageResource(R.drawable.play_black);
+                startActivity(new Intent(getApplicationContext(), VideoActivity.class));
+                finish();
             }
         });
 

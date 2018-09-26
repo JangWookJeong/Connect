@@ -112,7 +112,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="#ffffff"
-        android:layout_marginTop="1dp">
+        android:layout_marginTop="1dp"
+        android:onClick="gkgkgk"
+
+        >
+
+
     <include
         android:id="@+id/mainactivity_menu_include"
         layout="@layout/bottom_menu_items"

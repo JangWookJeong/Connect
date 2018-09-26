@@ -1,4 +1,4 @@
-package project.codename.connect.Activity;
+package project.codename.connect.Activity.LoginActivity_Package;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,7 +26,7 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         createcomponent();
-        addcomponent();
+        addlistener();
     }
 
     private void createcomponent() {
@@ -37,7 +37,7 @@ public class SignupActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
     }/////
 
-    private void addcomponent() {
+    private void addlistener() {
 
         Next_Button.setOnClickListener(new View.OnClickListener() {
             @Override

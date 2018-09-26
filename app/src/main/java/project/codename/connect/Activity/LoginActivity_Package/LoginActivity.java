@@ -1,4 +1,4 @@
-package project.codename.connect.Activity;
+package project.codename.connect.Activity.LoginActivity_Package;
 
 import android.content.Intent;
 import android.os.Build;
@@ -26,6 +26,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import project.codename.connect.Activity.HomeActivity_Package.MainActivity;
 import project.codename.connect.Connect_DAO.LoginDAO;
 import project.codename.connect.R;
 
@@ -135,7 +136,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
                             finish();
                         } else {
-
+                            task.getException().getMessage();
+                            Toast.makeText(LoginActivity.this, "로그인실패", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -169,7 +171,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                             //프로필 설정시 MainActivity로 이동
                             //구글 로그인 성공
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(LoginActivity.this, "userEmail" + user.getEmail() + "IdToken" + user.getIdToken(true), Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
                             finish();
 

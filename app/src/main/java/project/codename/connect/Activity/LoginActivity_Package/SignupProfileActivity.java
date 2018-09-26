@@ -1,4 +1,4 @@
-package project.codename.connect.Activity;
+package project.codename.connect.Activity.LoginActivity_Package;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
@@ -27,8 +26,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import project.codename.connect.Activity.HomeActivity_Package.MainActivity;
 import project.codename.connect.Connect_DAO.MypageDAO;
 import project.codename.connect.Connect_DTO.Profile_RegisterDTO;
+import project.codename.connect.Custom_Dialog.Custom_Dialog;
 import project.codename.connect.Custom_Dialog.Profile_Custom_Dialog;
 import project.codename.connect.R;
 
@@ -53,7 +54,6 @@ public class SignupProfileActivity extends AppCompatActivity {
     private ImageView Profile_Background_Image;
     private Dialog Profile_dialog, Profile_Checkbox_dialog;
     private TextView Profile_Change_Button, Profile_Background_Change_Button;
-    private ProgressDialog LoginDialog;
 
 
     @Override
@@ -61,7 +61,7 @@ public class SignupProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_profile);
         createcomponent();
-        addcomponent();
+        addlistener();
 
     }/////oncreate
 
@@ -78,12 +78,6 @@ public class SignupProfileActivity extends AppCompatActivity {
         if (Profile_Checkbox_dialog == null) {
             Profile_Checkbox_dialog = new Dialog(SignupProfileActivity.this);
         }
-
-        if (LoginDialog == null) {
-            LoginDialog = new ProgressDialog(SignupProfileActivity.this);
-        }
-        LoginDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        LoginDialog.setMessage("잠시만 기다려주세요.");
 
 
         Profile_dialog.setContentView(R.layout.profile_custom_imagechange_button);
@@ -108,7 +102,7 @@ public class SignupProfileActivity extends AppCompatActivity {
 
     }//////
 
-    private void addcomponent() {
+    private void addlistener() {
         Go_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -202,7 +196,7 @@ public class SignupProfileActivity extends AppCompatActivity {
                     if (Name.getText().toString().length() > 0 && Name.getText() != null) {
                         if (Profile_Gender_Result.toString().length() > 0 && Profile_Gender_Result != null) {
                             if (BirthDay.getText().toString().length() > 0 && BirthDay.getText() != null) {
-                                LoginDialog.show();
+
                                 new Profile_Asyctask().execute();
                             } else {
                                 //생년월일을 입력하지 않은경우
@@ -334,6 +328,7 @@ public class SignupProfileActivity extends AppCompatActivity {
             list = new ArrayList<>();
             ProfileDTO = new Profile_RegisterDTO();
             dao = new MypageDAO();
+            Custom_Dialog.showLoading(SignupProfileActivity.this);
 
 
         }
@@ -341,9 +336,8 @@ public class SignupProfileActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-
+            Custom_Dialog.hideLoading();
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
-            LoginDialog.dismiss();
             finish();
         }
 

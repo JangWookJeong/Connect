@@ -1,4 +1,4 @@
-package project.codename.connect.Activity;
+package project.codename.connect.Activity.MypageActivity_Package;
 
 import android.app.Activity;
 import android.app.AlertDialog;

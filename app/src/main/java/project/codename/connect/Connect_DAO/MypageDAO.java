@@ -1,13 +1,10 @@
 package project.codename.connect.Connect_DAO;
 
-import android.media.Image;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,7 +20,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import project.codename.connect.Activity.MypageActivity;
+import project.codename.connect.Activity.MypageActivity_Package.MypageActivity;
 import project.codename.connect.Connect_DTO.Profile_RegisterDTO;
 
 public class MypageDAO {
