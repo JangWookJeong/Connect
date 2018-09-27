@@ -76,7 +76,6 @@ public class MypageActivity extends AppCompatActivity {
                         Name.setText(dto.getName());
                         Glide.with(getApplicationContext()).load(dto.getProfile_Background_Image()).into(Background_Uri);
                         Glide.with(getApplicationContext()).load(dto.getProfile_Image()).into(Profile_Uri);
-
                         Custom_Dialog.hideLoading();
 
                     }
@@ -87,15 +86,22 @@ public class MypageActivity extends AppCompatActivity {
 
     private void call_profile() {
 
-
-        String email = user.getEmail();
-        String emailcheck = email.substring(email.indexOf("@") + 1, email.indexOf("."));
         Name.setText("");
         Message.setText("");
-        if (emailcheck.toLowerCase().equals("gmail")) {
-            Name.setText(user.getDisplayName());
+
+        if (user != null) {
+            //유저가 로그인을 하고 마이페이지에 들어온경우.
+            String email = user.getEmail();
+            String emailcheck = email.substring(email.indexOf("@") + 1, email.indexOf("."));
+
+            if (emailcheck.toLowerCase().equals("gmail")) {
+                Name.setText(user.getDisplayName());
+            } else {
+                new Myapge_Asyctask().execute();
+            }
         } else {
-            new Myapge_Asyctask().execute();
+            //유저가 로그인을 하지않고 마이페이지에 들어온경우.
+
         }
 
     }/////
