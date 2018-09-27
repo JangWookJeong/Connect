@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,10 +19,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.leinardi.android.speeddial.SpeedDialActionItem;
+import com.leinardi.android.speeddial.SpeedDialView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import project.codename.connect.Activity.BookMarkActivity.BookmarkActivity;
@@ -48,6 +52,7 @@ public class MypageActivity extends AppCompatActivity {
     private onGetuserInfo getInfo;
     private ProgressDialog LoginDialog;
     private FloatingActionButton Writer;
+    SpeedDialView speedDialView;
 
 
     public void setGetInfo(onGetuserInfo getInfo) {
@@ -126,7 +131,24 @@ public class MypageActivity extends AppCompatActivity {
         Profile_Uri = findViewById(R.id.mypage_circleimageview_profile);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-        Writer = findViewById(R.id.write);
+
+        speedDialView = findViewById(R.id.speedDial);
+        speedDialView.addActionItem(
+                new SpeedDialActionItem.Builder(R.id.write1, R.drawable.edit)
+                        .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.white, getTheme()))
+                        .create()
+        );
+        speedDialView.addActionItem(
+                new SpeedDialActionItem.Builder(R.id.write2, R.drawable.bookmark)
+                        .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.white, getTheme()))
+                        .create()
+        );
+        speedDialView.addActionItem(
+                new SpeedDialActionItem.Builder(R.id.write3, R.drawable.camera)
+                        .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.white, getTheme()))
+                        .create()
+        );
+        /*  Writer = findViewById(R.id.write);*/
         if (Dao == null) {
             Dao = new MypageDAO();
         }
@@ -165,12 +187,35 @@ public class MypageActivity extends AppCompatActivity {
             }
         });/////
 
-        Writer.setOnClickListener(new View.OnClickListener() {
+       /* Writer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), PostActivity.class));
             }
+        });*/
+
+        speedDialView.setOnActionSelectedListener(new SpeedDialView.OnActionSelectedListener() {
+            @Override
+            public boolean onActionSelected(SpeedDialActionItem actionItem) {
+                switch (actionItem.getId()) {
+                    case R.id.write1:
+                       startActivity(new Intent(getApplicationContext(),PostActivity.class));
+                       finish();
+                        return true;
+                    case R.id.write2:
+                        Toast.makeText(MypageActivity.this, "테스트입니다2", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.write3:
+                        Toast.makeText(MypageActivity.this, "테스트입니다3", Toast.LENGTH_SHORT).show();
+                        return true;
+                    default:
+                        return false;
+
+                }
+
+            }
         });
+
     }/////addcomponent
 
 

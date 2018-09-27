@@ -105,19 +105,26 @@
 
         </android.support.design.widget.CoordinatorLayout>
 
-        <android.support.design.widget.FloatingActionButton
+        <com.leinardi.android.speeddial.SpeedDialView
+            android:id="@+id/speedDial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            app:sdMainFabClosedSrc="@drawable/edit" />
+
+       <!-- <android.support.design.widget.FloatingActionButton
             android:id="@+id/write"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
             android:layout_marginBottom="5dp"
             android:layout_marginRight="10dp"
             android:background="#ffffff00"
             android:src="@drawable/edit"
-            app:backgroundTint="#1a76e6" />
+            app:backgroundTint="#1a76e6" />-->
 
     </RelativeLayout>
 

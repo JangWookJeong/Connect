@@ -28,6 +28,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 import project.codename.connect.Activity.HomeActivity_Package.MainActivity;
 import project.codename.connect.Connect_DAO.LoginDAO;
+import project.codename.connect.Custom_Dialog.Custom_Dialog;
 import project.codename.connect.R;
 
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
@@ -85,13 +86,14 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }/////
 
     private void addlistener() {
-        /*
+         /*
             컴포넌트 리스너 부착
          */
 
         Google_LoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent Google_Login_Intent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
                 startActivityForResult(Google_Login_Intent, RC_SIGN_IN);
             }/////onclick
@@ -150,6 +152,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if (result.isSuccess()) {
+                Custom_Dialog.showLoading(LoginActivity.this);
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
             } else {
@@ -172,6 +175,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                             //구글 로그인 성공
                             FirebaseUser user = mAuth.getCurrentUser();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            Custom_Dialog.hideLoading();
                             finish();
 
                         } else {

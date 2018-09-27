@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/bookmark_fragment_recyclerview_message"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <TextView
+            android:id="@+id/bookmark_fragment_textview_notcontent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="등록된 메세지가 없습니다."
+            android:gravity="center"/>
+    </FrameLayout>
+
+</LinearLayout>

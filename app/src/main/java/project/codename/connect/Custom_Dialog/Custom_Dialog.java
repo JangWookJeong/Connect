@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
-
 import project.codename.connect.R;
 
 public class Custom_Dialog {
