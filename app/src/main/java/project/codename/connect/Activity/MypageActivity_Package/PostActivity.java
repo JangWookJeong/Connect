@@ -2,17 +2,26 @@ package project.codename.connect.Activity.MypageActivity_Package;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ContentUris;
+import android.content.Context;
+import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,23 +29,35 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.github.irshulx.Editor;
 import com.github.irshulx.EditorListener;
 import com.github.irshulx.models.EditorContent;
 import com.github.irshulx.models.EditorTextStyle;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import project.codename.connect.Connect_DAO.PostDAO;
+import project.codename.connect.Connect_DTO.PostDTO;
+import project.codename.connect.Method;
 import project.codename.connect.R;
 import top.defaults.colorpicker.ColorPickerPopup;
 
 
 public class PostActivity extends AppCompatActivity {
-    Editor editor;
-    TextView Post_Upload, Post_Cancel;
+    private Editor editor;
+    private TextView Post_Upload, Post_Cancel;
+    private String checked_ImagePath;
+    private Uri uri;
+    private PostDTO dto;
+    private PostDAO dao;
+    private  String Register_Post;
+    private EditText Post_Title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +65,23 @@ public class PostActivity extends AppCompatActivity {
         setContentView(R.layout.activity_post);
         editor = (Editor) findViewById(R.id.editor);
 
-        setUpEditor();
-        createpomponent();
-        addlistener();
+        //bitmap image get..
+       /* Glide.with(getApplicationContext()).asBitmap().load("https://firebasestorage.googleapis.com/v0/b/connect-d69f9.appspot.com/o/%EA%B4%80%EB%A6%AC%EC%9E%90%2F%ED%9A%8C%EC%9B%90%EA%B4%80%EB%A6%AC%2F%ED%9A%8C%EC%9B%90%2F%E3%85%A1%E3%84%B4%E3%84%B7%E3%84%B9%2F20180923_163758.jpg?alt=media&token=05aa8d12-4ee3-42a0-97af-be4ef4e35b40")
+                .into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
+                        editor.insertImage(resource);
+                        //할일
 
+                    }
+                });*/
+
+
+        setUpEditor();
+
+        createpomponent();
+
+        addlistener();
 
     }
 
@@ -56,8 +90,19 @@ public class PostActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Post_Upload.setTextColor(Color.BLUE);
-                startActivity(new Intent(getApplicationContext(), MypageActivity.class));
-                finish();
+                Register_Post = editor.getContentAsHTML();
+                if (Post_Title.getText().length() != 0){
+                    if(editor.getContentAsHTML() != null){
+                      /*  new PostAsyncTask().execute();*/
+                        Toast.makeText(PostActivity.this, "업로드 성공", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(), MypageActivity.class));
+                        finish();
+                    }else{
+                        Toast.makeText(PostActivity.this, "내용을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(PostActivity.this, "제목을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
@@ -75,6 +120,14 @@ public class PostActivity extends AppCompatActivity {
     private void createpomponent() {
         Post_Upload = findViewById(R.id.postactivity_textview_upload);
         Post_Cancel = findViewById(R.id.postactivity_textview_cancel);
+        Post_Title = findViewById(R.id.postactivity_edittext_title);
+
+        if(dto == null){
+            dto = new PostDTO();
+        }
+        if(dao == null){
+            dao = new PostDAO();
+        }
 
     }/////
 
@@ -149,6 +202,13 @@ public class PostActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.action_insert_image).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.openImagePicker();
+            }
+        });
+
 
         findViewById(R.id.action_color).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,7 +237,6 @@ public class PostActivity extends AppCompatActivity {
 
             }
         });
-
 
 
         findViewById(R.id.action_insert_link).setOnClickListener(new View.OnClickListener() {
@@ -219,12 +278,15 @@ public class PostActivity extends AppCompatActivity {
 
             @Override
             public void onUpload(Bitmap image, String uuid) {
-                Toast.makeText(PostActivity.this, uuid, Toast.LENGTH_LONG).show();
+                //Toast.makeText(PostActivity.this, uuid, Toast.LENGTH_LONG).show();
                 /**
                  * TODO do your upload here from the bitmap received and all onImageUploadComplete(String url); to insert the result url to
                  * let the editor know the upload has completed
                  */
-                editor.onImageUploadComplete("http://www.videogamesblogger.com/wp-content/uploads/2015/08/metal-gear-solid-5-the-phantom-pain-cheats-640x325.jpg", uuid);
+
+
+
+             editor.onImageUploadComplete(checked_ImagePath, uuid);
                 //editor.onImageUploadFailed(uuid);
             }
         });
@@ -263,44 +325,21 @@ public class PostActivity extends AppCompatActivity {
     }
 
     private void render() {
-       /* String x = "<h2 id=\"installation\" style=\"font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;color:#c00000;background-color:#333;text-align:center; margin-top: -80px !important;\">Installation</h2>" +
-                "<h3 id=\"requires-html5-doctype\" style=\"font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;color:#ff0000; margin-bottom: 8px; margin-right: 0px; margin-left: 0px;\">Requires HTML5 doctype</h3>" +
-                "<p style=\"font-size: 14px; color: rgb(104, 116, 127);\">Bootstrap uses certain HTML elements and CSS properties which require HTML5 doctype. Include&nbsp;<code style=\"font-size: 12.6px;\">&lt;!DOCTYPE html&gt;</code>&nbsp;in the beginning of all your projects.</p>" +
-                "<img src=\"http://www.scifibloggers.com/wp-content/uploads/TOR_2.jpg\" />" +
-                "<h2 id=\"integration\" style=\"font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; margin-top: -80px !important;\">Integration</h2>" +
-                "<p style=\"font-size: 14px; color: rgb(104, 116, 127);\">3rd parties available in django, rails, angular and so on.</p>" +
-                "<h3 id=\"django\" style=\"font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; margin-bottom: 8px; margin-right: 0px; margin-left: 0px;\">Django</h3>" +
-                "<p style=\"font-size: 14px; color: rgb(104, 116, 127);\">Handy update for your django admin page.</p>" +
-                "<ul style=\"color: rgb(51, 51, 51);\"><li style=\"font-size: 14px; color: #c00000;\">django-summernote</li><li style=\"font-size: 14px; color: rgb(104, 116, 127);\"><a href=\"https://pypi.python.org/pypi/django-summernote\" target=\"_blank\">summernote plugin for Django</a></li></ul>" +
-                "<h3 id=\"ruby-on-rails\" style=\"font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; margin-bottom: 8px; margin-right: 0px; margin-left: 0px;\">Ruby On Rails</h3>" +
-                "<p style=\"font-size: 14px; color: rgb(104, 116, 127);\">This gem was built to gemify the assets used in Summernote.</p>" +
-                "<ul style=\"color: rgb(51, 51, 51);\"><li style=\"font-size: 14px; color: rgb(104, 116, 127);\"><a href=\"https://github.com/summernote/summernote-rails\" target=\"_blank\">summernote-rails</a></li></ul>" +
-                "<h3 id=\"angularjs\" style=\"font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; margin-bottom: 8px; margin-right: 0px; margin-left: 0px;\">AngularJS</h3>" +
-                "<p style=\"font-size: 14px; color: rgb(104, 116, 127);\">AngularJS directive to Summernote.</p>" +
-                "<ul style=\"color: rgb(51, 51, 51);\"><li style=\"font-size: 14px; color: rgb(104, 116, 127);\"><a href=\"https://github.com/summernote/angular-summernote\">angular-summernote</a></li></ul>" +
-                "<h3 id=\"apache-wicket\" style=\"font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; margin-bottom: 8px; margin-right: 0px; margin-left: 0px;\">Apache Wicket</h3>" +
-                "<p style=\"font-size: 14px; color: rgb(104, 116, 127);\">Summernote widget for Wicket Bootstrap.</p>" +
-                "<ul style=\"color: rgb(51, 51, 51);\"><li style=\"font-size: 14px; color: rgb(104, 116, 127);\"><a href=\"http://wb-mgrigorov.rhcloud.com/summernote\" target=\"_blank\">demo</a></li><li style=\"font-size: 14px; color: rgb(104, 116, 127);\"><a href=\"https://github.com/l0rdn1kk0n/wicket-bootstrap/tree/4f97ca783f7279ca43f9e2ee790703161f59fa40/bootstrap-extensions/src/main/java/de/agilecoders/wicket/extensions/markup/html/bootstrap/editor\" target=\"_blank\">source code</a></li></ul>" +
-                "<h3 id=\"webpack\" style=\"font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; margin-bottom: 8px; margin-right: 0px; margin-left: 0px;\">Webpack</h3>" +
-                "<p style=\"font-size: 14px; color: rgb(104, 116, 127);\">Example about using summernote with webpack.</p>" +
-                "<ul style=\"color: rgb(51, 51, 51);\"><li style=\"font-size: 14px; color: rgb(104, 116, 127);\"><a href=\"https://github.com/hackerwins/summernote-webpack-example\" target=\"_blank\">summernote-webpack-example</a></li></ul>" +
-                "<h3 id=\"meteor\" style=\"font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; margin-bottom: 8px; margin-right: 0px; margin-left: 0px;\">Meteor</h3>" +
-                "<p style=\"font-size: 14px; color: rgb(104, 116, 127);\">Example about using summernote with meteor.</p>" +
-                "<ul style=\"color: rgb(51, 51, 51);\"><li style=\"font-size: 14px; color: rgb(104, 116, 127);\"><a href=\"https://github.com/hackerwins/summernote-meteor-example\" target=\"_blank\">summernote-meteor-example</a></li></ul>" +
-                "<p style=\"font-size: 14px; color: rgb(104, 116, 127);\"><br></p>";
-        editor.render(x);
-        */
 
     }/////
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == editor.PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
-            Uri uri = data.getData();
+          uri = data.getData();
+            checked_ImagePath = Method.UrigetPath(PostActivity.this,data.getData());
+
+
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                 // Log.d(TAG, String.valueOf(bitmap));
                 editor.insertImage(bitmap);
+
             } catch (IOException e) {
                 Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
@@ -312,7 +351,8 @@ public class PostActivity extends AppCompatActivity {
         } else if (requestCode == editor.MAP_MARKER_REQUEST) {
             editor.insertMap(data.getStringExtra("cords"));
         }
-    }
+
+    }/////
 
     @Override
     public void onBackPressed() {
@@ -346,4 +386,32 @@ public class PostActivity extends AppCompatActivity {
         typefaceMap.put(Typeface.BOLD_ITALIC, "fonts/Lato-BoldItalic.ttf");
         return typefaceMap;
     }
+
+    public class PostAsyncTask extends AsyncTask<Void,Void,Void>{
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            return null;
+        }/////
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dto.setPost(Register_Post);
+            dto.setTitle(Post_Title.getText().toString());
+            dao.register_Post(dto);
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Toast.makeText(PostActivity.this, "업로드 성공.", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+    }
+
 }

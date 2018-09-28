@@ -11,16 +11,16 @@
         android:id="@+id/postactivity_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#ffffff"
         android:gravity="center"
-        android:orientation="horizontal"
-        android:background="#ffffff">
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/postactivity_textview_cancel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
             android:layout_marginRight="20dp"
+            android:layout_marginTop="2dp"
             android:layout_weight="1"
             android:gravity="center"
             android:text="Cancel" />
@@ -28,21 +28,20 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
             android:layout_weight="1"
             android:gravity="center"
             android:text="Write Life"
-            android:textSize="20dp"
             android:textColor="#000000"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-             />
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/postactivity_textview_upload"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="2dp"
             android:layout_weight="1"
             android:gravity="center"
             android:text="Upload" />
@@ -55,7 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/postactivity_button"
-       android:layout_margin="10dp"
+        android:layout_margin="10dp"
         android:layout_marginBottom="10dp"
         android:orientation="horizontal">
 
@@ -113,9 +112,9 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/postactivity_linearlayout_1"
                     android:layout_marginBottom="5dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="1dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginLeft="1dp">
+                    android:layout_marginTop="5dp">
 
                     <TextView
                         android:layout_width="0dp"
@@ -127,6 +126,7 @@
                         android:textStyle="bold" />
 
                     <EditText
+                        android:id="@+id/postactivity_edittext_title"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="6" />
@@ -151,13 +151,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
+
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <include
-                layout="@layout/tmpl_image_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+
             <include
                 layout="@layout/editor_toolbar_linearlayout_horizontal"
                 android:layout_width="match_parent"

@@ -31,6 +31,7 @@ import project.codename.connect.Connect_DAO.MypageDAO;
 import project.codename.connect.Connect_DTO.Profile_RegisterDTO;
 import project.codename.connect.Custom_Dialog.Custom_Dialog;
 import project.codename.connect.Custom_Dialog.Profile_Custom_Dialog;
+import project.codename.connect.Method;
 import project.codename.connect.R;
 
 public class SignupProfileActivity extends AppCompatActivity {
@@ -263,14 +264,13 @@ public class SignupProfileActivity extends AppCompatActivity {
         if (requestCode == PROFILE_IMAGE_CODE) {
             if (data != null) {
                 //이미지 경로 얻어서 사진 설정
-                Profile_Image_Path = getPath(data.getData());
+                Profile_Image_Path = Method.getPath(data.getData(), SignupProfileActivity.this);
                 File file = new File(Profile_Image_Path);
                 Profile_Circle_Image.setImageURI(Uri.fromFile(file));
                 Profile_Image_iscompleate = true;
 
             } else {
                 Toast.makeText(this, "이미지를 선택해주세요", Toast.LENGTH_SHORT).show();
-
                 return;
             }//////PROFILE_IMAGE
 
@@ -278,7 +278,7 @@ public class SignupProfileActivity extends AppCompatActivity {
 
         if (requestCode == PROFILE_BACKGROUND_IMAGE_CODE) {
             if (data != null) {
-                Profile_Background_Image_Path = getPath(data.getData());
+                Profile_Background_Image_Path = Method.getPath(data.getData(), SignupProfileActivity.this);
                 File file = new File(Profile_Background_Image_Path);
                 Profile_Background_Image.setImageURI(Uri.fromFile(file));
 
@@ -289,15 +289,6 @@ public class SignupProfileActivity extends AppCompatActivity {
 
     }/////onActivityResult
 
-    public String getPath(Uri uri) {
-
-        String[] proj = {MediaStore.Images.Media.DATA};
-        CursorLoader cursorLoader = new CursorLoader(this, uri, proj, null, null, null);
-        Cursor cursor = cursorLoader.loadInBackground();
-        int index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-        cursor.moveToFirst();
-        return cursor.getString(index);
-    }///////////////////////////getPath
 
     public class Profile_Asyctask extends AsyncTask<Void, Void, Void> {
 
