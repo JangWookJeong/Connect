@@ -11,15 +11,17 @@
             android:id="@+id/mypage_recyclerview_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="invisible">
+            android:visibility="visible"
+            android:layout_marginTop="70dp">
 
         </android.support.v7.widget.RecyclerView>
 
         <TextView
+            android:id="@+id/mypage_post_fragment_notcontent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="등록된 컨텐츠가 없습니다."
-            android:visibility="visible"
+            android:visibility="invisible"
             android:gravity="center"/>
 
     </FrameLayout>

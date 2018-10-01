@@ -2,10 +2,7 @@ package project.codename.connect.Activity.LoginActivity_Package;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.ProgressDialog;
-import android.content.CursorLoader;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -31,7 +28,7 @@ import project.codename.connect.Connect_DAO.MypageDAO;
 import project.codename.connect.Connect_DTO.Profile_RegisterDTO;
 import project.codename.connect.Custom_Dialog.Custom_Dialog;
 import project.codename.connect.Custom_Dialog.Profile_Custom_Dialog;
-import project.codename.connect.Method;
+import project.codename.connect.Class.Method;
 import project.codename.connect.R;
 
 public class SignupProfileActivity extends AppCompatActivity {
@@ -305,10 +302,13 @@ public class SignupProfileActivity extends AppCompatActivity {
             ProfileDTO.setName(Name.getText().toString());
             ProfileDTO.setGender(Gender.getText().toString());
             ProfileDTO.setBirthday(BirthDay.getText().toString());
-            ProfileDTO.setKrw(0);
+            System.out.println(Method.getDate().toString()+"입니다.......");
+            ProfileDTO.setRegistration_date(Method.getDate().toString());
+            ProfileDTO.setGrade("일반회원");
             dao.Register_Profile(ProfileDTO);
             Profile_Background_Image_Path = "";
             Profile_Image_Path = "";
+
 
             return null;
         }

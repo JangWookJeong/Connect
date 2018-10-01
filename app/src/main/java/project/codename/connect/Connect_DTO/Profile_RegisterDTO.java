@@ -12,16 +12,34 @@ public class Profile_RegisterDTO {
     private String Gender;
     private String Birthday;
     private Boolean Profile_isRegister = false;
-    private int Krw = 0;
+    private String Grade = "일반회원";
+    private String Registration_date;
+    private String Account;
 
-    public void setKrw(int krw) {
-        Krw = krw;
+    public void setAccount(String account) {
+        Account = account;
     }
 
-    public int getKrw() {
-
-        return Krw;
+    public String getAccount() {
+        return Account;
     }
+
+    public String getRegistration_date() {
+        return Registration_date;
+    }
+
+    public void setRegistration_date(String registration_date) {
+        Registration_date = registration_date;
+    }
+
+    public String getGrade() {
+        return Grade;
+    }
+
+    public void setGrade(String grade) {
+        Grade = grade;
+    }
+
 
     public String getProfile_Background_Image() {
         return Profile_Background_Image;

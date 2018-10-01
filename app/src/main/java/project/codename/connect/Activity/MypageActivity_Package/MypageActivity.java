@@ -31,10 +31,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import project.codename.connect.Activity.BookMarkActivity.BookmarkActivity;
 import project.codename.connect.Activity.HomeActivity_Package.MainActivity;
 import project.codename.connect.Activity.VideoActivity.VideoActivity;
+import project.codename.connect.Adapter.Mypage_Post_Adapter;
 import project.codename.connect.Adapter.Mypage_Tabmenu_Adapter;
 import project.codename.connect.Connect_DAO.MypageDAO;
+import project.codename.connect.Connect_DTO.PostDTO;
 import project.codename.connect.Connect_DTO.Profile_RegisterDTO;
 import project.codename.connect.Custom_Dialog.Custom_Dialog;
+import project.codename.connect.Fragment.Mypage_Post_Fragment;
 import project.codename.connect.R;
 
 public class MypageActivity extends AppCompatActivity {
@@ -50,9 +53,16 @@ public class MypageActivity extends AppCompatActivity {
     private FirebaseUser user;
     private FirebaseAuth auth;
     private onGetuserInfo getInfo;
-    private ProgressDialog LoginDialog;
-    private FloatingActionButton Writer;
-    SpeedDialView speedDialView;
+    private Mypage_Post_Adapter adapter;
+    private SpeedDialView speedDialView;
+
+
+    private onGetusercontentListener listener;
+
+
+    public void setListener(onGetusercontentListener listener) {
+        this.listener = listener;
+    }
 
 
     public void setGetInfo(onGetuserInfo getInfo) {
@@ -81,9 +91,24 @@ public class MypageActivity extends AppCompatActivity {
                         Name.setText(dto.getName());
                         Glide.with(getApplicationContext()).load(dto.getProfile_Background_Image()).into(Background_Uri);
                         Glide.with(getApplicationContext()).load(dto.getProfile_Image()).into(Profile_Uri);
-                        Custom_Dialog.hideLoading();
+
 
                     }
+                }
+            };
+        }
+
+        if (listener == null) {
+            listener = new onGetusercontentListener() {
+                @Override
+                public void onGetusercontent(PostDTO dto) {
+
+                    Mypage_Post_Fragment fragment = new Mypage_Post_Fragment();
+                    fragment.init(dto);
+
+                    Custom_Dialog.hideLoading();
+                    Toast.makeText(MypageActivity.this, "D end", Toast.LENGTH_SHORT).show();
+
                 }
             };
         }
@@ -152,6 +177,9 @@ public class MypageActivity extends AppCompatActivity {
         if (Dao == null) {
             Dao = new MypageDAO();
         }
+        if (adapter == null) {
+            adapter = new Mypage_Post_Adapter();
+        }
 
 
     }/////createcomponent
@@ -199,8 +227,8 @@ public class MypageActivity extends AppCompatActivity {
             public boolean onActionSelected(SpeedDialActionItem actionItem) {
                 switch (actionItem.getId()) {
                     case R.id.write1:
-                       startActivity(new Intent(getApplicationContext(),PostActivity.class));
-                       finish();
+                        startActivity(new Intent(getApplicationContext(), PostActivity.class));
+                        finish();
                         return true;
                     case R.id.write2:
                         Toast.makeText(MypageActivity.this, "테스트입니다2", Toast.LENGTH_SHORT).show();
@@ -223,7 +251,6 @@ public class MypageActivity extends AppCompatActivity {
         void getuserInfo(Profile_RegisterDTO dto);
     }
 
-
     public class Myapge_Asyctask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
@@ -236,14 +263,35 @@ public class MypageActivity extends AppCompatActivity {
             super.onPreExecute();
 
             Custom_Dialog.showLoading(MypageActivity.this);
-            /*LoginDialog.show();*/
+
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            new getPostContent().execute();
         }
     }
+
+    public class getPostContent extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            Dao.getPost_Mycontent(listener);
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+        }
+    }
+
+    public interface onGetusercontentListener {
+        void onGetusercontent(PostDTO dto);
+    }
+
 
 }/////MypageActivity
 

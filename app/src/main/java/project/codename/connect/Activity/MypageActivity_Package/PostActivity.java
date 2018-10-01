@@ -2,26 +2,18 @@ package project.codename.connect.Activity.MypageActivity_Package;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ContentUris;
-import android.content.Context;
-import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,35 +21,46 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.github.irshulx.Editor;
 import com.github.irshulx.EditorListener;
-import com.github.irshulx.models.EditorContent;
 import com.github.irshulx.models.EditorTextStyle;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+import project.codename.connect.Connect_DAO.MypageDAO;
 import project.codename.connect.Connect_DAO.PostDAO;
 import project.codename.connect.Connect_DTO.PostDTO;
-import project.codename.connect.Method;
+import project.codename.connect.Class.Method;
+import project.codename.connect.Connect_DTO.Profile_RegisterDTO;
+import project.codename.connect.Custom_Dialog.Custom_Dialog;
 import project.codename.connect.R;
 import top.defaults.colorpicker.ColorPickerPopup;
 
 
 public class PostActivity extends AppCompatActivity {
     private Editor editor;
-    private TextView Post_Upload, Post_Cancel;
+    private TextView Post_Upload, Post_Cancel, Post_date, Post_Name;
     private String checked_ImagePath;
+    private CircleImageView Post_Profile_Image;
     private Uri uri;
     private PostDTO dto;
     private PostDAO dao;
-    private  String Register_Post;
+    private String Register_Post;
     private EditText Post_Title;
+    private onPost_GetuserInfo Post_getInfo;
+    private FirebaseUser user;
+    private FirebaseAuth auth;
+    private EditText Post_Tag;
+
+    public void setPost_getInfo(onPost_GetuserInfo post_getInfo) {
+        Post_getInfo = post_getInfo;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,14 +79,33 @@ public class PostActivity extends AppCompatActivity {
                     }
                 });*/
 
-
+        Post_loadUserInfo();
         setUpEditor();
-
         createpomponent();
-
         addlistener();
+        Post_call_profile();
 
     }
+
+    private void Post_loadUserInfo() {
+
+        //유저의 프로필 정보를 가지고 오는 콜백메서드
+        if (Post_getInfo == null) {
+            //리스너가 널인경우 실행.
+            Post_getInfo = new onPost_GetuserInfo() {
+                @Override
+                public void getuserInfo(Profile_RegisterDTO dto) {
+                    if (dto != null) {
+                        Post_Name.setText(dto.getName());
+                        Post_date.setText(dto.getRegistration_date());
+                        Glide.with(getApplicationContext()).load(dto.getProfile_Image()).into(Post_Profile_Image);
+                        Custom_Dialog.hideLoading();
+
+                    }
+                }
+            };
+        }
+    }/////loadUserInfo
 
     private void addlistener() {
         Post_Upload.setOnClickListener(new View.OnClickListener() {
@@ -91,16 +113,16 @@ public class PostActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Post_Upload.setTextColor(Color.BLUE);
                 Register_Post = editor.getContentAsHTML();
-                if (Post_Title.getText().length() != 0){
-                    if(editor.getContentAsHTML() != null){
-                      /*  new PostAsyncTask().execute();*/
-                        Toast.makeText(PostActivity.this, "업로드 성공", Toast.LENGTH_SHORT).show();
+                if (Post_Title.getText().length() != 0) {
+                    if (editor.getContentAsHTML() != null) {
+                        new PostAsyncTask().execute();
+
                         startActivity(new Intent(getApplicationContext(), MypageActivity.class));
                         finish();
-                    }else{
+                    } else {
                         Toast.makeText(PostActivity.this, "내용을 입력해주세요.", Toast.LENGTH_SHORT).show();
                     }
-                }else{
+                } else {
                     Toast.makeText(PostActivity.this, "제목을 입력해주세요.", Toast.LENGTH_SHORT).show();
                 }
 
@@ -121,13 +143,20 @@ public class PostActivity extends AppCompatActivity {
         Post_Upload = findViewById(R.id.postactivity_textview_upload);
         Post_Cancel = findViewById(R.id.postactivity_textview_cancel);
         Post_Title = findViewById(R.id.postactivity_edittext_title);
-
-        if(dto == null){
+        Post_date = findViewById(R.id.postactivity_textview_date);
+        Post_Name = findViewById(R.id.postactivity_textview_nickname);
+        Post_Profile_Image = findViewById(R.id.postactivity_circleimageview_profileimage);
+        Post_date = findViewById(R.id.postactivity_textview_date);
+        Post_Tag = findViewById(R.id.postactivity_edittext_tag);
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+        if (dto == null) {
             dto = new PostDTO();
         }
-        if(dao == null){
+        if (dao == null) {
             dao = new PostDAO();
         }
+
 
     }/////
 
@@ -224,13 +253,12 @@ public class PostActivity extends AppCompatActivity {
                         .show(findViewById(android.R.id.content), new ColorPickerPopup.ColorPickerObserver() {
                             @Override
                             public void onColorPicked(int color) {
-                                Toast.makeText(PostActivity.this, "picked" + colorHex(color), Toast.LENGTH_LONG).show();
+
                                 editor.updateTextColor(colorHex(color));
                             }
 
                             @Override
                             public void onColor(int color, boolean fromUser) {
-
                             }
                         });
 
@@ -285,14 +313,12 @@ public class PostActivity extends AppCompatActivity {
                  */
 
 
-
-             editor.onImageUploadComplete(checked_ImagePath, uuid);
+                editor.onImageUploadComplete(checked_ImagePath, uuid);
                 //editor.onImageUploadFailed(uuid);
             }
         });
         render();
         editor.render();  // this method must be called to start the editor
-
 
         /*findViewById(R.id.btnRender).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -331,8 +357,8 @@ public class PostActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == editor.PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
-          uri = data.getData();
-            checked_ImagePath = Method.UrigetPath(PostActivity.this,data.getData());
+            uri = data.getData();
+            checked_ImagePath = Method.UrigetPath(PostActivity.this, data.getData());
 
 
             try {
@@ -361,6 +387,7 @@ public class PostActivity extends AppCompatActivity {
                 .setPositiveButton("네", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(getApplicationContext(), MypageActivity.class));
                         finish();
                     }
 
@@ -387,10 +414,12 @@ public class PostActivity extends AppCompatActivity {
         return typefaceMap;
     }
 
-    public class PostAsyncTask extends AsyncTask<Void,Void,Void>{
+
+    public class PostAsyncTask extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... voids) {
+            dao.register_Post(dto, getApplicationContext());
             return null;
         }/////
 
@@ -398,20 +427,59 @@ public class PostActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             dto.setPost(Register_Post);
+            dto.setDate(Method.getDate());
             dto.setTitle(Post_Title.getText().toString());
-            dao.register_Post(dto);
+            if (Post_Tag.getText().length() != 0) {
+                if (Post_Tag.getText().toString().contains("#")) {
+                    dto.setTag(Post_Tag.getText().toString());
+                } else {
+                    dto.setTag("#" + Post_Tag.getText().toString());
+                }
+            }
+        }
+    }/////
+
+    public class PostgetUserInfo extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            dao.Call_User_Profile(Post_getInfo);
+            return null;
+        }/////doInBackground
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            Toast.makeText(PostActivity.this, "업로드 성공.", Toast.LENGTH_SHORT).show();
+        }
+    }/////getUserInfo
+
+    private void Post_call_profile() {
+
+        if (user != null) {
+            //유저가 로그인을 하고 Post 에 들어온경우
+            new PostgetUserInfo().execute();
+
+        } else {
+            //유저가 로그인을 하지않고 마이페이지에 들어온경우.
+
         }
 
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
-        }
+    }/////
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dao = null;
+        dto = null;
+    }/////onDestroy
+
+    public interface onPost_GetuserInfo {
+        void getuserInfo(Profile_RegisterDTO dto);
     }
-
-}
+}/////class

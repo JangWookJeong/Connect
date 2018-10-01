@@ -1,4 +1,4 @@
-package project.codename.connect;
+package project.codename.connect.Class;
 
 import android.content.ContentUris;
 import android.content.Context;
@@ -9,8 +9,13 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Method {
+    private static SimpleDateFormat data;
 
     public static String getPath(Uri uri, Context context) {
 
@@ -33,8 +38,7 @@ public class Method {
                 if ("primary".equalsIgnoreCase(type)) {
                     return Environment.getExternalStorageDirectory() + "/" + split[1];
                 }
-            }
-            else if (isDownloadsDocument(uri)) {
+            } else if (isDownloadsDocument(uri)) {
                 final String id = DocumentsContract.getDocumentId(uri);
                 final Uri contentUri = ContentUris.withAppendedId(
                         Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
@@ -56,24 +60,20 @@ public class Method {
                 }
 
                 final String selection = "_id=?";
-                final String[] selectionArgs = new String[] {
+                final String[] selectionArgs = new String[]{
                         split[1]
                 };
 
                 return getDataColumn(context, contentUri, selection, selectionArgs);
             }
-        }
-        else if ("content".equalsIgnoreCase(uri.getScheme())) {
+        } else if ("content".equalsIgnoreCase(uri.getScheme())) {
             return getDataColumn(context, uri, null, null);
-        }
-        else if ("file".equalsIgnoreCase(uri.getScheme())) {
+        } else if ("file".equalsIgnoreCase(uri.getScheme())) {
             return uri.getPath();
         }
 
         return null;
     }
-
-
 
 
     public static String getDataColumn(Context context, Uri uri, String selection, String[] selectionArgs) {
@@ -105,4 +105,15 @@ public class Method {
     public static boolean isMediaDocument(Uri uri) {
         return "com.android.providers.media.documents".equals(uri.getAuthority());
     }
+
+    public static String getDate() {
+        //회원가입시 회원가입을 등록을 위한 데이트 메서드
+        if (data == null) {
+            data = new SimpleDateFormat("yyyy/MM/dd");
+
+
+        }
+        return  data.format(new Date());
+    }
+
 }
