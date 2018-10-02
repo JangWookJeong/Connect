@@ -157,7 +157,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -175,6 +174,12 @@
 
         </LinearLayout>
 
+        <include
+            android:id="@+id/include"
+            layout="@layout/tmpl_image_view"
+            android:layout_width="match_parent"
+            android:layout_height="5dp" />
+
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -184,6 +189,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </HorizontalScrollView>
+
     </LinearLayout>
 
 

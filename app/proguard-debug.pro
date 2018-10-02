@@ -20,7 +20,5 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
-#-keep class com.google.gson.** { *; }
- # -dontwarn com.squareup.picasso.**
- # -dontwarn com.squareup.okhttp.**
- # -keep public class org.jsoup.** { public *; }
+#-dontobfuscate                              #난독화를 수행하지 않도록 함
+#-keepattributes SoureFile,LineNumberTable   #소스파일, 라인 전보 유지

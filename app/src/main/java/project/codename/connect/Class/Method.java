@@ -12,7 +12,11 @@ import android.provider.MediaStore;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Method {
     private static SimpleDateFormat data;
@@ -113,7 +117,22 @@ public class Method {
 
 
         }
-        return  data.format(new Date());
+        return data.format(new Date());
+    }
+
+    public static List<String> string_Divide(String string_html) {
+        String html = string_html;
+        List<String> Result =  new ArrayList<>();
+        Pattern pattern = Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>"); //img 태그 src 추출 정규표현식
+        Matcher matcher = pattern.matcher(html);
+
+        while (matcher.find()) {
+            System.out.println(matcher.group(1));
+            Result.add(matcher.group(1));
+            System.out.println(Result.size()+"사이즈");
+        }
+        return Result;
+
     }
 
 }

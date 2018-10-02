@@ -17,6 +17,7 @@ import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -57,6 +59,11 @@ public class PostActivity extends AppCompatActivity {
     private FirebaseUser user;
     private FirebaseAuth auth;
     private EditText Post_Tag;
+    private String Profile_Image_Url;
+    private int image_Size;
+    private ImageButton button;
+    private List<String> Image_Urls;
+
 
     public void setPost_getInfo(onPost_GetuserInfo post_getInfo) {
         Post_getInfo = post_getInfo;
@@ -67,7 +74,12 @@ public class PostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
         editor = (Editor) findViewById(R.id.editor);
+        editor.setEditorImageLayout(R.layout.impl_image_view);
+        button = editor.findViewById(R.id.btn_remove);
 
+        if (button == null) {
+            Toast.makeText(this, "Null", Toast.LENGTH_SHORT).show();
+        }
         //bitmap image get..
        /* Glide.with(getApplicationContext()).asBitmap().load("https://firebasestorage.googleapis.com/v0/b/connect-d69f9.appspot.com/o/%EA%B4%80%EB%A6%AC%EC%9E%90%2F%ED%9A%8C%EC%9B%90%EA%B4%80%EB%A6%AC%2F%ED%9A%8C%EC%9B%90%2F%E3%85%A1%E3%84%B4%E3%84%B7%E3%84%B9%2F20180923_163758.jpg?alt=media&token=05aa8d12-4ee3-42a0-97af-be4ef4e35b40")
                 .into(new SimpleTarget<Bitmap>() {
@@ -98,7 +110,8 @@ public class PostActivity extends AppCompatActivity {
                     if (dto != null) {
                         Post_Name.setText(dto.getName());
                         Post_date.setText(dto.getRegistration_date());
-                        Glide.with(getApplicationContext()).load(dto.getProfile_Image()).into(Post_Profile_Image);
+                        Profile_Image_Url = dto.getProfile_Image();
+                        Glide.with(getApplicationContext()).load(Profile_Image_Url).into(Post_Profile_Image);
                         Custom_Dialog.hideLoading();
 
                     }
@@ -115,10 +128,16 @@ public class PostActivity extends AppCompatActivity {
                 Register_Post = editor.getContentAsHTML();
                 if (Post_Title.getText().length() != 0) {
                     if (editor.getContentAsHTML() != null) {
-                        new PostAsyncTask().execute();
+                        Image_Urls = Method.string_Divide(Register_Post);
+                        if (Image_Urls != null) {
+                            image_Size = Image_Urls.size();
+                            new PostAsyncTask().execute();
 
-                        startActivity(new Intent(getApplicationContext(), MypageActivity.class));
-                        finish();
+                        } else {
+                            Toast.makeText(PostActivity.this, "Null", Toast.LENGTH_SHORT).show();
+                        }
+
+
                     } else {
                         Toast.makeText(PostActivity.this, "내용을 입력해주세요.", Toast.LENGTH_SHORT).show();
                     }
@@ -149,6 +168,7 @@ public class PostActivity extends AppCompatActivity {
         Post_date = findViewById(R.id.postactivity_textview_date);
         Post_Tag = findViewById(R.id.postactivity_edittext_tag);
         auth = FirebaseAuth.getInstance();
+
         user = auth.getCurrentUser();
         if (dto == null) {
             dto = new PostDTO();
@@ -157,10 +177,11 @@ public class PostActivity extends AppCompatActivity {
             dao = new PostDAO();
         }
 
+    }/////createpomponent
 
-    }/////
 
     private void setUpEditor() {
+
         findViewById(R.id.action_h1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -284,6 +305,8 @@ public class PostActivity extends AppCompatActivity {
         findViewById(R.id.action_erase).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 editor.clearAllContents();
             }
         });
@@ -360,7 +383,6 @@ public class PostActivity extends AppCompatActivity {
             uri = data.getData();
             checked_ImagePath = Method.UrigetPath(PostActivity.this, data.getData());
 
-
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                 // Log.d(TAG, String.valueOf(bitmap));
@@ -429,6 +451,10 @@ public class PostActivity extends AppCompatActivity {
             dto.setPost(Register_Post);
             dto.setDate(Method.getDate());
             dto.setTitle(Post_Title.getText().toString());
+            dto.setName(Post_Name.getText().toString());
+            dto.setProfile_Image_Url(Profile_Image_Url);
+            dto.setImage_Size(image_Size);
+            dto.setImage_Urls(Image_Urls);
             if (Post_Tag.getText().length() != 0) {
                 if (Post_Tag.getText().toString().contains("#")) {
                     dto.setTag(Post_Tag.getText().toString());
@@ -436,6 +462,13 @@ public class PostActivity extends AppCompatActivity {
                     dto.setTag("#" + Post_Tag.getText().toString());
                 }
             }
+        }//////
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            startActivity(new Intent(getApplicationContext(), MypageActivity.class));
+            finish();
         }
     }/////
 

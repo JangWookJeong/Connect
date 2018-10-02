@@ -58,6 +58,7 @@ public class PostDAO {
     public void Call_User_Profile(final PostActivity.onPost_GetuserInfo post_getInfo) {
 
         database.getReference().child("Connect").child("회원관리").child("회원정보").child(auth.getCurrentUser().getUid()).child("기본프로필").addValueEventListener(new ValueEventListener() {
+
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 post_getInfo.getuserInfo(dataSnapshot.getValue(Profile_RegisterDTO.class));

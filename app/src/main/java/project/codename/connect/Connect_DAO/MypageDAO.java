@@ -1,5 +1,6 @@
 package project.codename.connect.Connect_DAO;
 
+import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
@@ -33,7 +34,7 @@ public class MypageDAO {
     private FirebaseDatabase Database;
     private FirebaseStorage Storage;
     private List<Profile_RegisterDTO> list_value;
-    private List<PostDTO> post_list_value;
+    private List<PostDTO> post_list_value, post_list_value_change;
     private List<String> list_key;
     private StorageReference StorageRef;
     private Uri Background_File, Profile_File;
@@ -49,6 +50,7 @@ public class MypageDAO {
         list_key = new ArrayList<>();
         post_list_value = new ArrayList<>();
         adapter = new Mypage_Post_Adapter();
+        post_list_value_change = new ArrayList<>();
 
 
     }///constructor
@@ -108,7 +110,7 @@ public class MypageDAO {
         });//////////task1
     }/////Register_Profile
 
-    public void Call_User_Profile(final MypageActivity.onGetuserInfo getInfo) {
+    public void Call_User_Profile(final MypageActivity.onGetuserInfo getInfo, Context applicationContext) {
 
         Database.getReference().child("Connect").child("회원관리").child("회원정보").child(auth.getCurrentUser().getUid()).child("기본프로필").addValueEventListener(new ValueEventListener() {
             @Override
@@ -141,20 +143,34 @@ public class MypageDAO {
     }/////Call_User_Profile
 
 
-    public void getPost_Mycontent(final MypageActivity.onGetusercontentListener listener) {
+    public void getPost_Mycontent(final Mypage_Post_Fragment.onGetusercontentListener listener) {
         Database.getReference().child("Connect").child("회원관리").child("회원정보").child(auth.getCurrentUser().getUid()).child("게시물관리").child("포스트").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
-                    listener.onGetusercontent(data.getValue(PostDTO.class));
-
+                    post_list_value.add(data.getValue(PostDTO.class));
                 }
-                MypageActivity mc = new MypageActivity();
-                mc.setListener(listener);
+                for (int i = post_list_value.size() - 1; i >= 0; i--) {
+                    post_list_value_change.add(post_list_value.get(i));
+                }
+                if (listener != null) {
+                    if (post_list_value_change != null) {
 
+                        listener.onGetusercontent(post_list_value_change);
+                        Mypage_Post_Fragment fragment = Mypage_Post_Fragment.newInstance();
+                        fragment.setListener((Mypage_Post_Fragment.onGetusercontentListener) listener);
+                    } else {
+                        Mypage_Post_Fragment fragment = Mypage_Post_Fragment.newInstance();
+                        fragment.setListener((Mypage_Post_Fragment.onGetusercontentListener) null);
+                    }
+                }else{
+                   if (listener == null){
+                       System.out.println("null");
+                   }
+                }
 
-            }
+            }/////onDataChange
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
