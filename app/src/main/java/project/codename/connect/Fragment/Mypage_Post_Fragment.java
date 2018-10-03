@@ -59,31 +59,7 @@ public class Mypage_Post_Fragment extends Fragment {
         new getPostContent().execute();
         Mypage_Post_Recyclerview = view.findViewById(R.id.mypage_recyclerview_content);
         Mypage_Notcontent = view.findViewById(R.id.mypage_post_fragment_notcontent);
-        Mypage_Post_Recyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (newState == AbsListView.OnScrollListener.SCROLL_STATE_FLING) {
 
-                } else if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
-
-                } else {
-
-                }
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                if (dy > 0) {
-                    //scrolling up
-                    System.out.print("스크롤업");
-                } else {
-                    //scrolling down
-                    System.out.print("스크롤다운");
-                }
-            }
-        });
 
         if (listener == null) {
             listener = new onGetusercontentListener() {

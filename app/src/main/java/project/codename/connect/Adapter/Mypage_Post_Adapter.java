@@ -1,5 +1,7 @@
 package project.codename.connect.Adapter;
 
+import android.content.ClipData;
+import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -26,51 +28,142 @@ import project.codename.connect.Fragment.Mypage_Post_Fragment;
 import project.codename.connect.R;
 
 public class Mypage_Post_Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    public static final String FIRST_TYPE = "R.layout.post_item2";
+    public static final String MULTI_TYPE = "R.layout.post_item1";
+
     private List<PostDTO> items;
     private Fragment fm;
-    private View view;
+
     private int count;
-    private int Items_Size;
+    private List<String> Image_Size;
 
     public Mypage_Post_Adapter() {
         items = new ArrayList<>();
+        Image_Size = new ArrayList<>();
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        for (int i = 0; i < items.size(); i++) {
-            if (items.get(i).getImage_Size() != 0) {
-                Items_Size = items.get(i).getImage_Size();
-            }
+
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_item1, parent, false);
+
+
+        System.out.println("if onCreateViewHolder in");
+        switch (viewType) {
+            case R.layout.post_item2:
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_item2, parent, false);
+                System.out.println("onCreateViewHolder in");
+                return new FirstDate(view);
+
+
         }
-        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_item1, parent, false);
 
 
         return new PostDate(view);
+    }/////createviewholder
+
+    @Override
+    public int getItemViewType(int position) {
+
+
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).getImage_Size() != 0) {
+                if (Image_Size.size() >= items.size()) {
+                    break;
+                } else {
+                    Image_Size.add(String.valueOf(items.get(i).getImage_Size()));
+                }
+            }
+        }
+
+        switch (Integer.parseInt(Image_Size.get(position))) {
+
+            case 1:
+                return R.layout.post_item2;
+        }
+        return -1;
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
+        System.out.println(Integer.parseInt(Image_Size.get(position)) + "숫자");
+        switch (Integer.parseInt(Image_Size.get(position))) {
+            case 1:
+                ((FirstDate) holder).Postitem2_name.setText(items.get(position).getName());
+                ((FirstDate) holder).Postitem2_title.setText(items.get(position).getTitle());
+                Glide.with(fm.getContext()).load(items.get(position).getProfile_Image_Url()).into(((FirstDate) holder).Postitem2_Proflie);
+                break;
 
-        ((PostDate) holder).Postitem_title.setText(items.get(position).getTitle());
-        ((PostDate) holder).Postitem_Name.setText(items.get(position).getName());
-        ((PostDate) holder).Postitem_register_Date.setText("등록일 : " + items.get(position).getReguster_date());
-        Glide.with(fm.getContext()).load(items.get(position).getProfile_Image_Url()).into(((PostDate) holder).Postitem_Profile_Image);
-        ((PostDate) holder).Post_ImageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(fm.getContext(), "여기서는 수정 삭제 등을 할수있습니다.", Toast.LENGTH_SHORT).show();
-            }
-        });
+            case 2:
 
-        ((PostDate) holder).Post_Relativelayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(fm.getContext(), "내용보기로 이동합니다.", Toast.LENGTH_SHORT).show();
-            }
-        });
+                ((PostDate) holder).Postitem_title.setText(items.get(position).getTitle());
+                ((PostDate) holder).Postitem_Name.setText(items.get(position).getName());
+                ((PostDate) holder).Postitem_register_Date.setText("등록일 : " + items.get(position).getReguster_date());
+                Glide.with(fm.getContext()).load(items.get(position).getProfile_Image_Url()).into(((PostDate) holder).Postitem_Profile_Image);
+                ((PostDate) holder).Post_ImageButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(fm.getContext(), "여기서는 수정 삭제 등을 할수있습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                ((PostDate) holder).Post_Relativelayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(fm.getContext(), "내용보기로 이동합니다.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                break;
+
+            case 3:
+
+                ((PostDate) holder).Postitem_title.setText(items.get(position).getTitle());
+                ((PostDate) holder).Postitem_Name.setText(items.get(position).getName());
+                ((PostDate) holder).Postitem_register_Date.setText("등록일 : " + items.get(position).getReguster_date());
+                Glide.with(fm.getContext()).load(items.get(position).getProfile_Image_Url()).into(((PostDate) holder).Postitem_Profile_Image);
+                ((PostDate) holder).Post_ImageButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(fm.getContext(), "여기서는 수정 삭제 등을 할수있습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                ((PostDate) holder).Post_Relativelayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(fm.getContext(), "내용보기로 이동합니다.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                break;
+
+            default:
+                ((PostDate) holder).Postitem_title.setText(items.get(position).getTitle());
+                ((PostDate) holder).Postitem_Name.setText(items.get(position).getName());
+                ((PostDate) holder).Postitem_register_Date.setText("등록일 : " + items.get(position).getReguster_date());
+                Glide.with(fm.getContext()).load(items.get(position).getProfile_Image_Url()).into(((PostDate) holder).Postitem_Profile_Image);
+                ((PostDate) holder).Post_ImageButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(fm.getContext(), "여기서는 수정 삭제 등을 할수있습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                ((PostDate) holder).Post_Relativelayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(fm.getContext(), "내용보기로 이동합니다.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                break;
+
+
+        }
+
 
     }/////onBindViewHolder
 
@@ -92,7 +185,6 @@ public class Mypage_Post_Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
         CircleImageView Postitem_Profile_Image;
         ImageButton Post_ImageButton;
         RelativeLayout Post_Relativelayout;
-        TextView postitem2_title, postitem2_name;
 
 
         public PostDate(View view) {
@@ -110,7 +202,21 @@ public class Mypage_Post_Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
             Post_ImageButton = view.findViewById(R.id.postitems_vert_button);
             Post_Relativelayout = view.findViewById(R.id.Post_Relativelayout);
 
-
         }
+
+
     }/////PostDate
+
+    private class FirstDate extends RecyclerView.ViewHolder {
+        TextView Postitem2_title, Postitem2_name;
+        CircleImageView Postitem2_Proflie;
+
+        public FirstDate(View view) {
+            super(view);
+            System.out.println("FirstDate in");
+            Postitem2_name = view.findViewById(R.id.postitems_2_name);
+            Postitem2_title = view.findViewById(R.id.postitems_2_title);
+            Postitem2_Proflie = view.findViewById(R.id.postitem_2_profileimage);
+        }
+    }
 }/////Mypage_Post_Adapter

@@ -74,7 +74,6 @@ public class PostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
         editor = (Editor) findViewById(R.id.editor);
-        editor.setEditorImageLayout(R.layout.impl_image_view);
         button = editor.findViewById(R.id.btn_remove);
 
         if (button == null) {
