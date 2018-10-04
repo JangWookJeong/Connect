@@ -30,7 +30,8 @@
         <activity android:name=".Activity.LoginActivity_Package.SignupActivity" />
         <activity android:name=".Activity.LoginActivity_Package.SignupProfileActivity" />
         <activity android:name=".Activity.BookMarkActivity.BookmarkActivity" />
-        <activity android:name=".Activity.VideoActivity.VideoActivity"></activity>
+        <activity android:name=".Activity.VideoActivity.VideoActivity" />
+        <activity android:name=".Activity.MypageActivity_Package.ContentActivity"></activity>
     </application>
 
 </manifest>

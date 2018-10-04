@@ -1,7 +1,9 @@
 package project.codename.connect.Adapter;
 
 import android.content.ClipData;
+import android.content.Intent;
 import android.media.Image;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -22,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import project.codename.connect.Activity.MypageActivity_Package.ContentActivity;
 import project.codename.connect.Activity.MypageActivity_Package.MypageActivity;
 import project.codename.connect.Connect_DTO.PostDTO;
 import project.codename.connect.Fragment.Mypage_Post_Fragment;
@@ -30,16 +33,17 @@ import project.codename.connect.R;
 public class Mypage_Post_Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public static final String FIRST_TYPE = "R.layout.post_item2";
     public static final String MULTI_TYPE = "R.layout.post_item1";
-
     private List<PostDTO> items;
     private Fragment fm;
-
     private int count;
     private List<String> Image_Size;
+
+    private Intent intent;
 
     public Mypage_Post_Adapter() {
         items = new ArrayList<>();
         Image_Size = new ArrayList<>();
+
     }
 
     @NonNull
@@ -86,7 +90,7 @@ public class Mypage_Post_Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
 
         System.out.println(Integer.parseInt(Image_Size.get(position)) + "숫자");
         switch (Integer.parseInt(Image_Size.get(position))) {
@@ -94,6 +98,18 @@ public class Mypage_Post_Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 ((FirstDate) holder).Postitem2_name.setText(items.get(position).getName());
                 ((FirstDate) holder).Postitem2_title.setText(items.get(position).getTitle());
                 Glide.with(fm.getContext()).load(items.get(position).getProfile_Image_Url()).into(((FirstDate) holder).Postitem2_Proflie);
+                System.out.println(position + "position");
+                ((FirstDate) holder).Post_Relative_Layout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(fm.getContext(), "내용보기로 이동합니다.", Toast.LENGTH_SHORT).show();
+                        intent = new Intent(fm.getContext(), ContentActivity.class);
+                        send_User_Profile(position);
+
+
+                        fm.getContext().startActivity(intent);
+                    }
+                });
                 break;
 
             case 2:
@@ -113,9 +129,10 @@ public class Mypage_Post_Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     @Override
                     public void onClick(View view) {
                         Toast.makeText(fm.getContext(), "내용보기로 이동합니다.", Toast.LENGTH_SHORT).show();
+                        intent = new Intent(fm.getContext(), ContentActivity.class);
+                        send_User_Profile(position);
                     }
                 });
-
                 break;
 
             case 3:
@@ -135,6 +152,8 @@ public class Mypage_Post_Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     @Override
                     public void onClick(View view) {
                         Toast.makeText(fm.getContext(), "내용보기로 이동합니다.", Toast.LENGTH_SHORT).show();
+                        intent = new Intent(fm.getContext(), ContentActivity.class);
+                        send_User_Profile(position);
                     }
                 });
 
@@ -156,6 +175,8 @@ public class Mypage_Post_Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     @Override
                     public void onClick(View view) {
                         Toast.makeText(fm.getContext(), "내용보기로 이동합니다.", Toast.LENGTH_SHORT).show();
+                        intent = new Intent(fm.getContext(), ContentActivity.class);
+                        send_User_Profile(position);
                     }
                 });
 
@@ -166,6 +187,16 @@ public class Mypage_Post_Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 
     }/////onBindViewHolder
+
+    private void send_User_Profile(int position) {
+        intent.putExtra("position", position);
+        intent.putExtra("name", items.get(position).getName());
+        intent.putExtra("title", items.get(position).getTitle());
+        intent.putExtra("content", items.get(position).getPost());
+        intent.putExtra("register_date", items.get(position).getReguster_date());
+        intent.putExtra("profile_url", items.get(position).getProfile_Image_Url());
+        fm.getContext().startActivity(intent);
+    }
 
     @Override
     public int getItemCount() {
@@ -210,6 +241,7 @@ public class Mypage_Post_Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private class FirstDate extends RecyclerView.ViewHolder {
         TextView Postitem2_title, Postitem2_name;
         CircleImageView Postitem2_Proflie;
+        RelativeLayout Post_Relative_Layout;
 
         public FirstDate(View view) {
             super(view);
@@ -217,6 +249,7 @@ public class Mypage_Post_Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
             Postitem2_name = view.findViewById(R.id.postitems_2_name);
             Postitem2_title = view.findViewById(R.id.postitems_2_title);
             Postitem2_Proflie = view.findViewById(R.id.postitem_2_profileimage);
+            Post_Relative_Layout = view.findViewById(R.id.postitem_2_relativelayout);
         }
     }
 }/////Mypage_Post_Adapter

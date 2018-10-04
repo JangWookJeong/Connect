@@ -139,7 +139,7 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:paddingTop="10dp"
-                    app:placeholder="당신의 이야기를 들려주세요."
+                    app:placeholder="아무거나 입력하세요"
                     app:render_type="Editor" />
             </LinearLayout>
         </ScrollView>

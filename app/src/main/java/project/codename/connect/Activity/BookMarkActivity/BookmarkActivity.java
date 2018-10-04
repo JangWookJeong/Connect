@@ -24,6 +24,7 @@ public class BookmarkActivity extends AppCompatActivity {
     private ViewPager Bookmark_Viewpager;
     private Bookmark_Tabmenu_Adapter adapter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +52,7 @@ public class BookmarkActivity extends AppCompatActivity {
         Bookmark_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
             }
         });/////Bookmark_Button
         Play_Button.setOnClickListener(new View.OnClickListener() {
@@ -58,6 +60,7 @@ public class BookmarkActivity extends AppCompatActivity {
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), VideoActivity.class));
                 finish();
+
             }
         });/////Play_Button
     }

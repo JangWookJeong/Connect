@@ -4,12 +4,18 @@ import android.content.ContentUris;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.github.irshulx.Editor;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -69,6 +75,7 @@ public class Method {
                 };
 
                 return getDataColumn(context, contentUri, selection, selectionArgs);
+
             }
         } else if ("content".equalsIgnoreCase(uri.getScheme())) {
             return getDataColumn(context, uri, null, null);
@@ -113,26 +120,44 @@ public class Method {
     public static String getDate() {
         //회원가입시 회원가입을 등록을 위한 데이트 메서드
         if (data == null) {
-            data = new SimpleDateFormat("yyyy/MM/dd");
-
-
+            data = new SimpleDateFormat("yyyy.MM.dd");
         }
         return data.format(new Date());
     }
 
     public static List<String> string_Divide(String string_html) {
+        //텍스트 에디터 html 소스에서 img가 포함되었으면 그 img 경로를 추출해주는 정규 표현식.
         String html = string_html;
-        List<String> Result =  new ArrayList<>();
+        List<String> Result = new ArrayList<>();
         Pattern pattern = Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>"); //img 태그 src 추출 정규표현식
         Matcher matcher = pattern.matcher(html);
 
         while (matcher.find()) {
             System.out.println(matcher.group(1));
             Result.add(matcher.group(1));
-            System.out.println(Result.size()+"사이즈");
+            System.out.println(Result.size() + "사이즈");
         }
         return Result;
 
-    }
+    }/////
+
+    public static String change_address(String content) {
+        String html = content;
+        String aa = null;
+        List<String> list = new ArrayList<>();
+
+        List<String> Result = new ArrayList<>();
+        Pattern pattern = Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>");
+        Matcher matcher = pattern.matcher(html);
+
+        String id = "\"https://firebasestorage.googleapis.com/v0/b/connect-d69f9.appspot.com/o/%EA%B4%80%EB%A6%AC%EC%9E%90%2F%ED%9A%8C%EC%9B%90%EA%B4%80%EB%A6%AC%2F%ED%9A%8C%EC%9B%90%2F7uAcn6c9bJWh6FH4Z0NSkwMuXg33%2F%EC%9D%B4%EB%AF%B8%EC%A7%80%2F20181005_033406.jpg?alt=media&token=dd41a522-803a-45c1-b1bc-10df81662d12\"";
+
+        while (matcher.find()) {
+            aa = matcher.replaceAll(id);
+            System.out.println(matcher.group(1));
+        }
+        return aa;
+    }/////
+
 
 }

@@ -1,5 +1,7 @@
 package project.codename.connect.Connect_DTO;
 
+import android.net.Uri;
+
 import java.util.List;
 
 public class PostDTO {
@@ -12,6 +14,15 @@ public class PostDTO {
     private String Profile_Image_Url;
     private int Image_Size;
     private List<String> image_Urls;
+    private List<String> Image_Address;
+
+    public List<String> getImage_Address() {
+        return Image_Address;
+    }
+
+    public void setImage_Address(List<String> image_Address) {
+        Image_Address = image_Address;
+    }
 
     public List<String> getImage_Urls() {
         return image_Urls;
