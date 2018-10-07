@@ -18,7 +18,7 @@
         <ImageView
             android:id="@+id/mypage_imageview_backgroundImage"
             android:layout_width="match_parent"
-            android:layout_height="105dp"
+            android:layout_height="95dp"
             android:scaleType="fitXY"
             android:src="@drawable/profilebackground" />
 
@@ -27,7 +27,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="53dp"
             android:src="@drawable/profile_icon" />
 
         <TextView
@@ -51,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/mypage_circleimageview_profile"
-            android:layout_marginLeft="33dp"
+            android:layout_marginLeft="24dp"
             android:layout_marginTop="4dp"
             android:text="미설정"
             android:textSize="20dp"
@@ -112,7 +112,8 @@
             android:layout_gravity="bottom|end"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            app:sdMainFabClosedSrc="@drawable/edit" />
+            app:sdMainFabClosedSrc="@drawable/edit"
+            />
 
     </RelativeLayout>
 

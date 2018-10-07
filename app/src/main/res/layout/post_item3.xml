@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/postitem3_relativelayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    >
+
+    <RelativeLayout
+        android:id="@+id/postitem3_first_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/postitem3_circleimageview"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/image3" />
+
+        <TextView
+            android:id="@+id/postitem3_textview_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/postitem3_circleimageview"
+            android:text="장욱정"
+            android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/postitem3_textview_registerdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="5dp"
+            android:layout_toLeftOf="@+id/postitem3_imagebutton_vert"
+            android:text="등록일 : 18.10.05"
+            android:textSize="14dp" />
+
+        <ImageButton
+            android:id="@+id/postitem3_imagebutton_vert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="6dp"
+            android:layout_marginTop="5dp"
+            android:background="#ffffff"
+            android:src="@drawable/vert_black" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/postitem_3_scond_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/postitem3_first_linearlayout"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/postitem3_textview_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="오늘의 재미있는 일기 입니다 ㅋㅋㅋㅋㅋㅋ 추억에 사무쳐서 군대ㅑ이야기만 햇네요 ㅋㅋ.." />
+
+        <ImageView
+            android:id="@+id/postitem3_imageview_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/image2" />
+
+        <ImageView
+            android:id="@+id/postitem3_imageview_adimage"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:src="@drawable/adimage1"
+            android:scaleType="fitXY"
+            android:layout_marginTop="5dp"/>
+
+        <TextView
+            android:id="@+id/postitem3_textview_viewcount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="조회수 : 50"
+            android:layout_marginTop="5dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/postitem3_three_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/postitem_3_scond_linearlayout"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/postitem3_edittext_comment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="12dp"
+            android:layout_weight="3"
+            android:background="@drawable/content_item_stroke"
+            android:hint="\t댓글을 입력해주세요"
+            android:textSize="17dp"
+            />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_marginLeft="5dp">
+
+            <ImageButton
+                android:id="@+id/postitem3_imagebutton_likebutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="#ffffff"
+                android:src="@drawable/like_white" />
+
+            <TextView
+                android:id="@+id/postitem3_textview_likesize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="10dp"
+                android:text="30"
+                android:textSize="17dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/postitem3_imagebutton_commentbutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp"
+                android:background="#ffffff"
+                android:src="@drawable/comment_white" />
+
+            <TextView
+                android:id="@+id/postitem3_textview_commentsize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="10dp"
+                android:text="30"
+                android:textColor="@color/red"
+                android:textSize="17dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#dad8d8"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/postitem3_three_linearlayout"/>
+
+</RelativeLayout>

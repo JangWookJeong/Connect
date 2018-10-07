@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/postitem_2_relativelayout"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp">
-
+    android:layout_margin="10dp">
 
 
     <LinearLayout
@@ -13,23 +11,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/main_list_first_imageview2"
             android:layout_width="125dp"
             android:layout_height="80dp"
-            android:src="@drawable/image2"
             android:scaleType="fitXY"
-            />
+            android:src="@drawable/image2" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_below="@+id/center_imager2"
-            android:layout_marginTop="1dp">
+            android:layout_marginTop="1dp"
+            android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -42,71 +38,65 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentTop="true"
+                    android:layout_marginLeft="12dp"
                     android:maxLength="20"
                     android:text="제목을 입력해주세요!"
                     android:textSize="15dp"
-                    android:layout_marginLeft="12dp"
-                    android:textStyle="bold"
-                    />
+                    android:textStyle="bold" />
 
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/vert_black"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="3dp"
-                    android:background="#ffffff"/>
+                    android:background="#ffffff"
+                    android:src="@drawable/vert_black" />
 
             </RelativeLayout>
-
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="13dp">
+                android:layout_marginTop="13dp"
+                android:orientation="horizontal">
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/postitem_2_profileimage"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="10dp"
                     android:src="@drawable/image3"
-                    app:civ_border_color="#9c9c9c"
-                    app:civ_border_width="2dp" />
+                    app:civ_border_color="#9c9c9c"/>
 
                 <TextView
                     android:id="@+id/postitems_2_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginTop="20dp"
                     android:gravity="right"
                     android:text="원빈"
-                    android:textSize="13dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="6dp"
-                    />
+                    android:textSize="13dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginTop="20dp"
                     android:gravity="right"
                     android:text="조회수 :"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="100dp"
-                    android:textSize="13dp"
-                    />
+                    android:textSize="13dp" />
 
                 <TextView
                     android:id="@+id/viewcount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="50"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginLeft="10dp"/>
+                    android:gravity="right"
+                    android:text="50" />
 
 
             </LinearLayout>
@@ -116,11 +106,12 @@
 
 
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#dad8d8"
+        android:layout_height="3dp"
+        android:layout_below="@+id/center_imager2"
         android:layout_marginTop="10dp"
-        android:layout_below="@+id/center_imager2"/>
+        android:background="#dad8d8" />
 
 </RelativeLayout>

@@ -39,7 +39,6 @@ public class ContentActivity extends AppCompatActivity {
     private int position;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,17 +58,13 @@ public class ContentActivity extends AppCompatActivity {
 
         if (getIntent() != null) {
             intent = getIntent();
-            System.out.println(intent.getStringExtra("name"));
-            System.out.println(intent.getStringExtra("title"));
-            System.out.println(intent.getStringExtra("name"));
-            System.out.println(intent.getStringExtra("register_date"));
-            System.out.println(intent.getStringExtra("profile_url"));
-            System.out.println(intent.getStringExtra("content"));
+
             position = intent.getIntExtra("position", 0);
             Content_Nickname.setText(intent.getStringExtra("name"));
             Content_Title.setText(intent.getStringExtra("title"));
             Content_RegisterDates.setText(intent.getStringExtra("register_date"));
-            System.out.println(Method.change_address(intent.getStringExtra("content"))+"content");
+
+            System.out.println(Method.change_address(intent.getStringExtra("content")) + "content");
             /*editor.render(intent.getStringExtra("content"));*/
             editor.render(intent.getStringExtra("content"));
             Glide.with(getApplicationContext()).load(intent.getStringExtra("profile_url")).into(Content_Profile);

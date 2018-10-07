@@ -6,6 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".Activity.VideoActivity.VideoActivity">
 
+    <VideoView
+        android:id="@+id/videoview1"
+        android:layout_width="match_parent"
+        android:layout_height="224dp"
+        android:layout_marginBottom="372dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <FrameLayout
+        android:id="@+id/videoViewWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/videoview1">
+    </FrameLayout>
+
+
     <LinearLayout
         android:id="@+id/videoactivity_last_linearlayout"
         android:layout_width="match_parent"

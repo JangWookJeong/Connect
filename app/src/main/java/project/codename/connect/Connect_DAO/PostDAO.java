@@ -70,7 +70,7 @@ public class PostDAO {
             Image_Urls = new Uri[Urls.size()];
             task = new UploadTask[Urls.size()];
             if (Urls != null) {
-                System.out.println("UserSIze" + Urls.size());
+
                 for (int i = 0; i < Urls.size(); i++) {
 
                     System.out.println(i + "번째 등록중");
@@ -103,8 +103,8 @@ public class PostDAO {
                                 database.getReference().child("Connect").child("회원관리").child("회원정보").child(auth.getCurrentUser().getUid()).child("게시물관리").child("포스트").push().setValue(dto).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        Toast.makeText(context, "등록이 완료되었습니다.", Toast.LENGTH_SHORT).show();
                                         Custom_Dialog.hideLoading();
+                                        Toast.makeText(context, "등록이 완료되었습니다.", Toast.LENGTH_SHORT).show();
                                         context.startActivity(new Intent(context, MypageActivity.class));
                                         ((PostActivity) context).finish();
 

@@ -11,15 +11,17 @@
         android:id="@+id/contentactivity_first_relativelayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ffffff"
-        android:layout_marginBottom="1dp">
+        android:layout_marginBottom="1dp"
+        android:background="#ffffff">
 
         <ImageButton
             android:id="@+id/contentactivity_imagebutton_vert"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_margin="10dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginRight="7dp"
+            android:layout_marginBottom="7dp"
             android:background="#ffffff"
             android:src="@drawable/vert_black" />
 
@@ -38,7 +40,9 @@
             android:id="@+id/contentactivity_textview_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:text="제목을 입력하는 곳입니다  여기서 제목이 보여집니다."
             android:textColor="#000000"
             android:textSize="20dp" />
@@ -48,14 +52,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/contentactivity_second_linearlayout"
-            android:layout_margin="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="3dp"
             android:background="#ffffff"
             android:orientation="horizontal">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/contentactivity_circleimageview_profile"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_marginTop="5dp"
                 android:src="@drawable/image3" />
 
@@ -84,13 +91,12 @@
                 android:id="@+id/contentactivity_imagebutton_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="수정"
-                android:textSize="16dp"
-                android:layout_marginLeft="180dp"
                 android:layout_marginBottom="2dp"
-                android:padding="13dp"
+                android:layout_marginLeft="180dp"
+                android:padding="8dp"
+                android:text="수정"
                 android:textColor="#1a76e6"
-                />
+                android:textSize="16dp" />
 
         </LinearLayout>
     </LinearLayout>
@@ -99,9 +105,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/contentactivity_last_linearlayout"
         android:layout_below="@+id/contentactivity_second_linearlayout"
-        android:background="#ffffff"
-        android:layout_above="@+id/contentactivity_last_linearlayout">
+        android:background="#ffffff">
 
         <com.github.irshulx.Editor
             android:id="@+id/contentactivity_texteditor"
@@ -120,45 +126,49 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="#ffffff"
-        android:orientation="horizontal"
-        android:layout_marginTop="1dp">
+        android:orientation="horizontal">
 
         <EditText
             android:id="@+id/contentactivity_edittext_comment"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:hint="댓글 입력" />
+            android:background="@drawable/content_item_stroke"
+            android:layout_marginBottom="3dp"
+            android:hint="댓글을 입력해주세요"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"/>
 
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+           >
 
             <ImageButton
                 android:id="@+id/contentactivity_imagebutton_comment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
                 android:background="#ffffff"
-                android:src="@drawable/comment"
-                android:layout_marginTop="5dp"/>
+                android:padding="5dp"
+                android:src="@drawable/comment_white" />
 
             <TextView
                 android:id="@+id/comtentactivity_textview_commentsize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="23dp"
-                android:text="23"
-                android:textSize="16dp"
-                android:textColor="@color/red"
-                android:textStyle="bold"
+                android:layout_marginLeft="22dp"
+                android:layout_marginTop="2dp"
                 android:background="#ffffff"
-                />
-
-
+                android:text="112"
+                android:textColor="@color/red"
+                android:textSize="10dp"
+                android:textStyle="bold" />
         </RelativeLayout>
     </LinearLayout>
-
 
 </RelativeLayout>
 

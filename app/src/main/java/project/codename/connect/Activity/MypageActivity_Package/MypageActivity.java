@@ -148,7 +148,7 @@ public class MypageActivity extends AppCompatActivity {
                         .create()
         );
         speedDialView.addActionItem(
-                new SpeedDialActionItem.Builder(R.id.write2, R.drawable.bookmark)
+                new SpeedDialActionItem.Builder(R.id.write2, R.drawable.menu_icon_bookmark_black)
                         .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.white, getTheme()))
                         .create()
         );

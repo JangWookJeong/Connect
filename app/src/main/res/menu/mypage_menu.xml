@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/write1"
-        android:icon="@drawable/bookmark"
+        android:icon="@drawable/menu_icon_bookmark_white"
         android:title="Home" />
     <item
         android:id="@+id/write2"
@@ -11,6 +11,6 @@
         android:title="People" />
     <item
         android:id="@+id/write3"
-        android:icon="@drawable/person_black"
+        android:icon="@drawable/menu_icon_person_black"
         android:title="account" />
 </menu>

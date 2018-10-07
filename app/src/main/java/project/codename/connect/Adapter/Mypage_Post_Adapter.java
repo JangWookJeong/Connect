@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -53,14 +54,13 @@ public class Mypage_Post_Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_item1, parent, false);
 
 
-        System.out.println("if onCreateViewHolder in");
         switch (viewType) {
             case R.layout.post_item2:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_item2, parent, false);
-                System.out.println("onCreateViewHolder in");
                 return new FirstDate(view);
-
-
+            case R.layout.post_item3:
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_item3, parent, false);
+                return new ThreeDate(view);
         }
 
 
@@ -84,6 +84,8 @@ public class Mypage_Post_Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
         switch (Integer.parseInt(Image_Size.get(position))) {
 
             case 1:
+                return R.layout.post_item3;
+            case 2:
                 return R.layout.post_item2;
         }
         return -1;
@@ -95,6 +97,26 @@ public class Mypage_Post_Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
         System.out.println(Integer.parseInt(Image_Size.get(position)) + "숫자");
         switch (Integer.parseInt(Image_Size.get(position))) {
             case 1:
+                Glide.with(fm.getContext()).load(items.get(position).getProfile_Image_Url()).into(((ThreeDate) holder).PostItem3_Profile);
+                ((ThreeDate) holder).PostItem3_Nickname.setText(items.get(position).getName());
+                ((ThreeDate) holder).PostItem3_resisterdate.setText(items.get(position).getReguster_date());
+                ((ThreeDate) holder).PostItem3_Title.setText(items.get(position).getTitle());
+              /*  ((ThreeDate) holder).PostItem3_ViewCount.setText(0);
+                ((ThreeDate) holder).PostItem3_CommentSize.setText(0);
+                ((ThreeDate) holder).PostItem3_LikeSize.setText(0);*/
+                ((ThreeDate) holder).PostItem3_Relativelayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(fm.getContext(), "내용보기로 이동합니다.", Toast.LENGTH_SHORT).show();
+                        intent = new Intent(fm.getContext(), ContentActivity.class);
+                        send_User_Profile(position);
+                    }
+                });
+                break;
+
+
+            case 2:
+
                 ((FirstDate) holder).Postitem2_name.setText(items.get(position).getName());
                 ((FirstDate) holder).Postitem2_title.setText(items.get(position).getTitle());
                 Glide.with(fm.getContext()).load(items.get(position).getProfile_Image_Url()).into(((FirstDate) holder).Postitem2_Proflie);
@@ -108,29 +130,6 @@ public class Mypage_Post_Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 
                         fm.getContext().startActivity(intent);
-                    }
-                });
-                break;
-
-            case 2:
-
-                ((PostDate) holder).Postitem_title.setText(items.get(position).getTitle());
-                ((PostDate) holder).Postitem_Name.setText(items.get(position).getName());
-                ((PostDate) holder).Postitem_register_Date.setText("등록일 : " + items.get(position).getReguster_date());
-                Glide.with(fm.getContext()).load(items.get(position).getProfile_Image_Url()).into(((PostDate) holder).Postitem_Profile_Image);
-                ((PostDate) holder).Post_ImageButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Toast.makeText(fm.getContext(), "여기서는 수정 삭제 등을 할수있습니다.", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                ((PostDate) holder).Post_Relativelayout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Toast.makeText(fm.getContext(), "내용보기로 이동합니다.", Toast.LENGTH_SHORT).show();
-                        intent = new Intent(fm.getContext(), ContentActivity.class);
-                        send_User_Profile(position);
                     }
                 });
                 break;
@@ -252,4 +251,30 @@ public class Mypage_Post_Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
             Post_Relative_Layout = view.findViewById(R.id.postitem_2_relativelayout);
         }
     }
+
+    private class ThreeDate extends RecyclerView.ViewHolder {
+        RelativeLayout PostItem3_Relativelayout;
+        CircleImageView PostItem3_Profile;
+        TextView PostItem3_Nickname, PostItem3_resisterdate, PostItem3_Title, PostItem3_ViewCount, PostItem3_LikeSize, PostItem3_CommentSize;
+        ImageButton PostItem3_Vert, PostItem3_LikeButton, PostItem3_CommentButton;
+        ImageView PostItem3_Imagecontent;
+        TextView PostItem3_InputComment;
+
+        public ThreeDate(View itemView) {
+            super(itemView);
+            PostItem3_Profile = itemView.findViewById(R.id.postitem3_circleimageview);
+            PostItem3_Nickname = itemView.findViewById(R.id.postitem3_textview_nickname);
+            PostItem3_resisterdate = itemView.findViewById(R.id.postitem3_textview_registerdate);
+            PostItem3_Vert = itemView.findViewById(R.id.postitem3_imagebutton_vert);
+            PostItem3_LikeButton = itemView.findViewById(R.id.postitem3_imagebutton_likebutton);
+            PostItem3_CommentButton = itemView.findViewById(R.id.postitem3_imagebutton_commentbutton);
+            PostItem3_ViewCount = itemView.findViewById(R.id.postitem3_textview_viewcount);
+            PostItem3_LikeSize = itemView.findViewById(R.id.postitem3_textview_likesize);
+            PostItem3_Title = itemView.findViewById(R.id.postitem3_textview_title);
+            PostItem3_CommentSize = itemView.findViewById(R.id.postitem3_textview_commentsize);
+            PostItem3_Imagecontent = itemView.findViewById(R.id.postitem3_imageview_image);
+            PostItem3_InputComment = itemView.findViewById(R.id.postitem3_edittext_comment);
+            PostItem3_Relativelayout = itemView.findViewById(R.id.postitem3_relativelayout);
+        }
+    }/////
 }/////Mypage_Post_Adapter
