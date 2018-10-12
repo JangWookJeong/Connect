@@ -75,13 +75,13 @@
             android:scaleType="fitXY"
             android:src="@drawable/image2" />
 
-        <ImageView
+      <!--  <ImageView
             android:id="@+id/postitem3_imageview_adimage"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:src="@drawable/adimage1"
             android:scaleType="fitXY"
-            android:layout_marginTop="5dp"/>
+            android:layout_marginTop="5dp"/>-->
 
         <TextView
             android:id="@+id/postitem3_textview_viewcount"

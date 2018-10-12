@@ -220,7 +220,6 @@ public class MypageActivity extends AppCompatActivity {
                         return true;
                     default:
                         return false;
-
                 }
 
             }
