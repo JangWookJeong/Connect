@@ -29,7 +29,6 @@ public class Mypage_Post_Fragment extends Fragment {
     private List<PostDTO> list;
     private MypageDAO dao;
     private TextView Mypage_Notcontent;
-
     private onGetusercontentListener listener;
 
 
@@ -66,18 +65,21 @@ public class Mypage_Post_Fragment extends Fragment {
                 @Override
                 public void onGetusercontent(List<PostDTO> list) {
 
-                        if (list != null) {
-                            adapter.additem(list,Mypage_Post_Fragment.this);
+                    if (list != null) {
+
+                        if (list.size() != 0) {
+                            adapter.additem(list, Mypage_Post_Fragment.this);
                             Mypage_Post_Recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
                             Mypage_Post_Recyclerview.setAdapter(adapter);
                         } else {
                             Mypage_Post_Recyclerview.setVisibility(View.INVISIBLE);
                             Mypage_Notcontent.setVisibility(View.VISIBLE);
+                        }
                     }
                 }
             };
-        }else{
-            System.out.println("asdasdasda");
+        } else {
+
         }
 
         return view;

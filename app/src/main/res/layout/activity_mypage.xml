@@ -8,76 +8,190 @@
     android:orientation="vertical"
     tools:context=".Activity.MypageActivity_Package.MypageActivity">
 
+
+    <LinearLayout
+        android:id="@+id/mypageactivity_linearlayout_top"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/blue"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="140dp"
+            android:layout_marginTop="1dp"
+            android:text="profile"
+            android:textColor="#dad8d8"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
     <RelativeLayout
         android:id="@+id/mypage_first_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="1dp"
+        android:layout_below="@+id/mypageactivity_linearlayout_top"
         android:background="#ffffff">
 
-        <ImageView
-            android:id="@+id/mypage_imageview_backgroundImage"
-            android:layout_width="match_parent"
-            android:layout_height="95dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/profilebackground" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/mypage_circleimageview_profile"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="53dp"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="20dp"
             android:src="@drawable/profile_icon" />
 
-        <TextView
-            android:id="@+id/mypageactivity_button_setprofile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/mypage_imageview_backgroundImage"
-            android:layout_marginRight="60dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/mypageactivity_stroke_item"
-            android:gravity="center"
-            android:paddingBottom="3dp"
-            android:paddingLeft="40dp"
-            android:paddingRight="40dp"
-            android:paddingTop="3dp"
-            android:text="프로필 설정" />
 
         <TextView
             android:id="@+id/mypage_textview_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/mypage_circleimageview_profile"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="4dp"
-            android:text="미설정"
-            android:textSize="20dp"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@+id/mypage_circleimageview_profile"
+            android:text="장욱정"
+            android:textSize="23dp"
             android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mypage_textview_name"
+            android:layout_gravity="center"
+            android:layout_marginLeft="40dp"
+            android:layout_toRightOf="@+id/mypage_circleimageview_profile"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/mypageactivity_inner_linearlayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1dp"
+                android:layout_marginTop="3dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/mypageactivity_textview_postsize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="355"
+                    android:textSize="17dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="Post" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/mypageactivity_inner_linearlayout2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="3dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="59"
+                    android:textSize="17dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="firends" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="3dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="1353"
+                    android:textSize="17dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="2dp"
+                    android:text="add" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/mypageactivity_linearlayout_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mypage_first_layout"
+        android:layout_marginBottom="1dp"
+        android:background="#ffffff">
+
 
         <TextView
             android:id="@+id/mypage_textview_profilecontent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/mypage_textview_name"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="4dp"
-            android:maxLength="50"
-            android:maxLines="2"
-            android:text="등록된 상태메세지가 없습니다." />
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="3dp"
+            android:maxLength="100"
+            android:maxLines="4"
+            android:text="등록된 상태메세지가 없습니다.\n프로필을 등록해주시길 바랍니다. " />
+    </LinearLayout>
 
-    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/mypageactivity_linearlayout_setprofile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mypageactivity_linearlayout_content"
+        android:layout_marginBottom="1dp"
+        android:background="#ffffff"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/mypageactivity_textview_setprofile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="프로필 설정"
+            android:textColor="@color/blue" />
+
+    </LinearLayout>
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/mypageactivity_four_linearlayout"
-        android:layout_below="@+id/mypage_first_layout">
+        android:layout_below="@+id/mypageactivity_linearlayout_setprofile">
 
 
         <android.support.design.widget.CoordinatorLayout
@@ -109,11 +223,10 @@
             android:id="@+id/speedDial"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            app:sdMainFabClosedSrc="@drawable/edit"
-            />
+            android:layout_gravity="bottom|end"
+            app:sdMainFabClosedSrc="@drawable/edit" />
 
     </RelativeLayout>
 
@@ -130,15 +243,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#ffffff"
-        android:layout_marginTop="1dp">
+        android:layout_marginTop="1dp"
+        android:background="#ffffff">
 
         <include
             android:id="@+id/mypage_bottom_menu"
             layout="@layout/bottom_menu_items"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-             />
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -3,7 +3,9 @@
     android:id="@+id/postitem3_relativelayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginBottom="5dp"
     >
 
     <RelativeLayout
@@ -65,7 +67,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:text="오늘의 재미있는 일기 입니다 ㅋㅋㅋㅋㅋㅋ 추억에 사무쳐서 군대ㅑ이야기만 햇네요 ㅋㅋ.." />
+            android:text="오늘의 재미있는 일기 입니다 ㅋㅋㅋㅋㅋㅋ 추억에 사무쳐서 군대ㅑ이야기만 햇네요 ㅋㅋ.."
+            android:textStyle="bold"
+            android:textSize="17dp"/>
 
         <ImageView
             android:id="@+id/postitem3_imageview_image"
@@ -167,7 +171,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="3dp"
+        android:layout_height="1dp"
         android:background="#dad8d8"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/postitem3_three_linearlayout"/>

@@ -49,16 +49,14 @@ public class MypageActivity extends AppCompatActivity {
     private Mypage_Tabmenu_Adapter tab_adapter;
     private ImageButton Home_Button, Mypage_Button, Play_Button, Bookmark_Button;
     private MypageDAO Dao;
-    private TextView Name, Message;
+    private TextView Name, Message, SetProfile,Post_Size;
     private ImageView Background_Uri;
     private CircleImageView Profile_Uri;
     private FirebaseUser user;
     private FirebaseAuth auth;
     private onGetuserInfo getInfo;
     private SpeedDialView speedDialView;
-
-
-
+    private String Profile_Url;
 
 
     public void setGetInfo(onGetuserInfo getInfo) {
@@ -85,23 +83,23 @@ public class MypageActivity extends AppCompatActivity {
                 public void getuserInfo(Profile_RegisterDTO dto) {
                     if (dto != null) {
                         Name.setText(dto.getName());
-                        Glide.with(getApplicationContext()).load(dto.getProfile_Background_Image()).into(Background_Uri);
+                        /* Glide.with(getApplicationContext()).load(dto.getProfile_Background_Image()).into(Background_Uri);*/
+                        Profile_Url = dto.getProfile_Image();
                         Glide.with(getApplicationContext()).load(dto.getProfile_Image()).into(Profile_Uri);
                         Custom_Dialog.hideLoading();
-
                     }
                 }
             };
-        }else{
+        } else {
             getInfo = null;
         }
 
-           }/////loadUserInfo
+    }/////loadUserInfo
 
     private void call_profile() {
 
         Name.setText("");
-        Message.setText("");
+
 
         if (user != null) {
             //유저가 로그인을 하고 마이페이지에 들어온경우.
@@ -115,7 +113,7 @@ public class MypageActivity extends AppCompatActivity {
             }
         } else {
             //유저가 로그인을 하지않고 마이페이지에 들어온경우.
-
+            Toast.makeText(this, "로그인을 해주세요.", Toast.LENGTH_SHORT).show();
         }
 
     }/////
@@ -132,11 +130,13 @@ public class MypageActivity extends AppCompatActivity {
         Home_Button = findViewById(R.id.main_bottom_home_button);
         Mypage_Button = findViewById(R.id.main_bottom_myPage_button);
         Mypage_Button.setSelected(true);
+        SetProfile = findViewById(R.id.mypageactivity_textview_setprofile);
         Bookmark_Button = findViewById(R.id.main_bottom_notification_button);
         Play_Button = findViewById(R.id.main_bottom_searchbutton);
+        Post_Size = findViewById(R.id.mypageactivity_textview_postsize);
         Name = findViewById(R.id.mypage_textview_name);
         Message = findViewById(R.id.mypage_textview_profilecontent);
-        Background_Uri = findViewById(R.id.mypage_imageview_backgroundImage);
+        /*Background_Uri = findViewById(R.id.mypage_imageview_backgroundImage);*/
         Profile_Uri = findViewById(R.id.mypage_circleimageview_profile);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
@@ -161,7 +161,6 @@ public class MypageActivity extends AppCompatActivity {
         if (Dao == null) {
             Dao = new MypageDAO();
         }
-
 
 
     }/////createcomponent
@@ -223,7 +222,16 @@ public class MypageActivity extends AppCompatActivity {
                 }
 
             }
-        });
+        });/////
+
+        SetProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), SetprofileActivity.class);
+                intent.putExtra("profile_image", Profile_Url);
+                startActivity(intent);
+            }
+        });/////setprofile
 
     }/////addcomponent
 
@@ -235,7 +243,7 @@ public class MypageActivity extends AppCompatActivity {
     public class Myapge_Asyctask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
-            Dao.Call_User_Profile(getInfo,getApplicationContext());
+            Dao.Call_User_Profile(getInfo, getApplicationContext());
             return null;
         }///////
 
@@ -250,10 +258,9 @@ public class MypageActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-        /*    new getPostContent().execute();*/
+            /*    new getPostContent().execute();*/
         }
     }
-
 
 
 }/////MypageActivity

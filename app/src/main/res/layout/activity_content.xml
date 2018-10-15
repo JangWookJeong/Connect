@@ -10,19 +10,18 @@
     <RelativeLayout
         android:id="@+id/contentactivity_first_relativelayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="1dp"
-        android:background="#ffffff">
+        android:layout_height="30dp"
+        android:background="@color/blue">
 
         <ImageButton
             android:id="@+id/contentactivity_imagebutton_vert"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="7dp"
-            android:layout_marginRight="7dp"
             android:layout_marginBottom="7dp"
-            android:background="#ffffff"
+            android:layout_marginRight="7dp"
+            android:layout_marginTop="7dp"
+            android:background="@color/blue"
             android:src="@drawable/vert_black" />
 
     </RelativeLayout>
@@ -40,9 +39,9 @@
             android:id="@+id/contentactivity_textview_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
             android:text="제목을 입력하는 곳입니다  여기서 제목이 보여집니다."
             android:textColor="#000000"
             android:textSize="20dp" />
@@ -52,10 +51,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/contentactivity_second_linearlayout"
-            android:layout_marginLeft="10dp"
             android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="8dp"
             android:background="#ffffff"
             android:orientation="horizontal">
 
@@ -107,7 +106,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/contentactivity_last_linearlayout"
         android:layout_below="@+id/contentactivity_second_linearlayout"
-        android:background="#ffffff">
+        android:background="#ffffff"
+        android:orientation="vertical">
 
         <com.github.irshulx.Editor
             android:id="@+id/contentactivity_texteditor"
@@ -118,6 +118,27 @@
             android:paddingRight="10dp"
             android:paddingTop="10dp"
             app:render_type="Editor"></com.github.irshulx.Editor>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/image1" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/image1" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/image1" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/image1" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -125,49 +146,43 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="1dp"
         android:background="#ffffff"
         android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:src="@drawable/send" />
 
         <EditText
             android:id="@+id/contentactivity_edittext_comment"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:background="@drawable/content_item_stroke"
             android:layout_marginBottom="3dp"
-            android:hint="댓글을 입력해주세요"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"/>
+            android:layout_marginTop="5dp"
+            android:layout_weight="5"
+            android:background="@drawable/content_item_stroke"
+            android:hint="댓글을 입력해주세요" />
 
-        <RelativeLayout
+
+        <TextView
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:layout_weight="1"
-            android:layout_marginLeft="5dp"
-           >
+            android:gravity="center"
+            android:text="보내기"
+            android:textStyle="bold"
+            android:textColor="@color/blue" />
 
-            <ImageButton
-                android:id="@+id/contentactivity_imagebutton_comment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:layout_marginBottom="1dp"
-                android:background="#ffffff"
-                android:padding="5dp"
-                android:src="@drawable/comment_white" />
 
-            <TextView
-                android:id="@+id/comtentactivity_textview_commentsize"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="22dp"
-                android:layout_marginTop="2dp"
-                android:background="#ffffff"
-                android:text="112"
-                android:textColor="@color/red"
-                android:textSize="10dp"
-                android:textStyle="bold" />
-        </RelativeLayout>
     </LinearLayout>
 
 </RelativeLayout>

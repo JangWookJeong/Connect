@@ -43,7 +43,6 @@ public class ContentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content);
-
         createcomponent();
         getdata();
         addlistener();
@@ -67,9 +66,9 @@ public class ContentActivity extends AppCompatActivity {
             System.out.println(Method.change_address(intent.getStringExtra("content")) + "content");
             /*editor.render(intent.getStringExtra("content"));*/
             editor.render(intent.getStringExtra("content"));
-            Glide.with(getApplicationContext()).load(intent.getStringExtra("profile_url")).into(Content_Profile);
+            //Glide.with(getApplicationContext()).load(intent.getStringExtra("profile_url")).into(Content_Profile);
 
-           /* Glide.with(getApplicationContext()).asBitmap().load("https://firebasestorage.googleapis.com/v0/b/connect-d69f9.appspot.com/o/%EA%B4%80%EB%A6%AC%EC%9E%90%2F%ED%9A%8C%EC%9B%90%EA%B4%80%EB%A6%AC%2F%ED%9A%8C%EC%9B%90%2F7uAcn6c9bJWh6FH4Z0NSkwMuXg33%2F%EC%9D%B4%EB%AF%B8%EC%A7%80%2F20181005_033406.jpg?alt=media&token=dd41a522-803a-45c1-b1bc-10df81662d12")
+          /*  Glide.with(getApplicationContext()).asBitmap().load("https://firebasestorage.googleapis.com/v0/b/connect-d69f9.appspot.com/o/%EA%B4%80%EB%A6%AC%EC%9E%90%2F%ED%9A%8C%EC%9B%90%EA%B4%80%EB%A6%AC%2F%ED%9A%8C%EC%9B%90%2F7uAcn6c9bJWh6FH4Z0NSkwMuXg33%2F%EC%9D%B4%EB%AF%B8%EC%A7%80%2F20181005_033406.jpg?alt=media&token=dd41a522-803a-45c1-b1bc-10df81662d12")
                     .into(new SimpleTarget<Bitmap>() {
                         @Override
                         public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
@@ -109,16 +108,15 @@ public class ContentActivity extends AppCompatActivity {
     }////addlistener
 
     private void createcomponent() {
+
         editor = findViewById(R.id.contentactivity_texteditor);
         Content_Nickname = findViewById(R.id.contentactivity_textview_nickname);
         Content_Title = findViewById(R.id.contentactivity_textview_title);
         Content_RegisterDates = findViewById(R.id.contentactivity_textview_register_date);
         Content_Edit = findViewById(R.id.contentactivity_imagebutton_edit);
-        Content_CommentSize = findViewById(R.id.comtentactivity_textview_commentsize);
         Content_Vert = findViewById(R.id.contentactivity_imagebutton_vert);
         Content_Comment = findViewById(R.id.contentactivity_edittext_comment);
         Content_Profile = findViewById(R.id.contentactivity_circleimageview_profile);
-
 
     }/////createcomponet
 

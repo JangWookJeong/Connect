@@ -45,6 +45,7 @@ public class Mypage_Post_Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
         items = new ArrayList<>();
         Image_Size = new ArrayList<>();
 
+
     }
 
     @NonNull
@@ -205,6 +206,9 @@ public class Mypage_Post_Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void additem(List<PostDTO> setlist, Mypage_Post_Fragment mypage_post_fragment) {
         this.items = setlist;
         this.fm = mypage_post_fragment;
+
+        intent = new Intent(fm.getContext(), MypageActivity.class);
+
     }/////additem
 
     private class PostDate extends RecyclerView.ViewHolder {
@@ -215,7 +219,6 @@ public class Mypage_Post_Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
         CircleImageView Postitem_Profile_Image;
         ImageButton Post_ImageButton;
         RelativeLayout Post_Relativelayout;
-
 
         public PostDate(View view) {
             super(view);

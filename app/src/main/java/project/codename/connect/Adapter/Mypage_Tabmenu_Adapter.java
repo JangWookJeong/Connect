@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import project.codename.connect.Fragment.Mypage_Photo_Fragment;
 import project.codename.connect.Fragment.Mypage_Post_Fragment;
 
 public class Mypage_Tabmenu_Adapter extends FragmentStatePagerAdapter {
@@ -23,7 +24,7 @@ public class Mypage_Tabmenu_Adapter extends FragmentStatePagerAdapter {
             case 1:
                 return Mypage_Post_Fragment.newInstance();
             case 2:
-                return Mypage_Post_Fragment.newInstance();
+                return Mypage_Photo_Fragment.newInstance();
             case 3:
                 return Mypage_Post_Fragment.newInstance();
         }
